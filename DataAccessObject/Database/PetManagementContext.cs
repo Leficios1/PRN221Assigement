@@ -1,5 +1,4 @@
 ﻿using BussinessObject.Model.Entities;
-using DataAccessObject.Model.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

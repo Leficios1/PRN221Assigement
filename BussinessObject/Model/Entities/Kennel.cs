@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessObject.Model.Entities
+namespace BussinessObject.Model.Entities
 {
     [Table("Kennel")]
     public class Kennel

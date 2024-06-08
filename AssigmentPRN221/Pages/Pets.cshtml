@@ -1,0 +1,73 @@
+﻿@page
+@model AssigmentPRN221.Pages.PetsModel
+@{
+    <h1>CURD Pets</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Pet Name</th>
+                <th>Pet Type</th>
+                <th>BirthDate</th>
+                <th>Pet Gender</th>
+                <th>Pet Secial Features</th>
+                <th>User Name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var pet in Model.Pets)
+            {
+                <tr>
+                    <td>@pet.Id</td>
+                    <td>@pet.PetName</td>
+                    <td>@pet.PetType</td>
+                    <td>@pet.BirthDate.ToString("dd-MM-yyyy")</td>
+                    <td>@(pet.PetGender ?? "Unknown")</td>
+                    <td>@(pet.PetSecialFeatures ?? "Unknown")</td>
+                    <td>@pet.UserName</td>
+                    <td>
+                        <button class="btn btn-primary" onclick="showUpdatePopup(@pet.Id)">Update</button>
+                        <button class="btn btn-danger" onclick="showDeletePopup(@pet.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+
+    <!-- Update Popup -->
+    <div id="updatePopup" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUpdatePopup()">&times;</span>
+            <h2>Update Pet</h2>
+            <form id="updateForm" method="post">
+                <input type="hidden" id="updatePetId" name="Id" />
+                <label for="updatePetName">Pet Name:</label>
+                <input type="text" id="updatePetName" name="PetName" required />
+                <label for="updatePetType">Pet Type:</label>
+                <input type="text" id="updatePetType" name="PetType" required />
+                <label for="updatePetBirthDate">Birth Date:</label>
+                <input type="date" id="updatePetBirthDate" name="BirthDate" required />
+                <label for="updatePetGender">Gender:</label>
+                <input type="text" id="updatePetGender" name="PetGender" />
+                <label for="updatePetSpecialFeatures">Special Features:</label>
+                <input type="text" id="updatePetSpecialFeatures" name="PetSpecialFeatures" />
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Delete Popup -->
+    <div id="deletePopup" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDeletePopup()">&times;</span>
+            <h2>Are you sure you want to delete this pet?</h2>
+            <form id="deleteForm" method="post">
+                <input type="hidden" id="deletePetId" name="Id" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+                <button type="button" class="btn btn-secondary" onclick="closeDeletePopup()">Cancel</button>
+            </form>
+        </div>
+    </div>
+}

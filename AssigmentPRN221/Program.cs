@@ -10,8 +10,9 @@ namespace AssigmentPRN221
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddRazorPages();
+            Extensions.ServiceCollectionExtensions.Register(builder.Services);
 
+            //Conntect With DB
             builder.Services.AddDbContext<PetManagementContext>(options =>
             {
                 options.UseSqlServer(builder.Configuration.GetConnectionString("PetHealthCareSystem"));

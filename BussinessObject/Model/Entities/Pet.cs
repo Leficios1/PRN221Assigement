@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessObject.Model.Entities
+namespace BussinessObject.Model.Entities
 {
     [Table("Pet")]
     public class Pet : IBaseEntities
@@ -20,6 +20,7 @@ namespace DataAccessObject.Model.Entities
         public DateTime BirthDate { get; set; }
         public string? PetGender {  get; set; }
         public string? PetSecialFeatures { get; set; }
+        public short Status {  get; set; }
         //Fk
         public int UserId {  get; set; }
 

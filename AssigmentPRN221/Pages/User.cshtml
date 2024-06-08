@@ -1,0 +1,37 @@
+﻿@page
+@model AssigmentPRN221.Pages.UserModel
+@{
+    <h1>Users List</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+                <th>Date Of Birth</th>
+                <th>Gender</th>
+                <th>Status</th>
+                <th>Role Id</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.Phone</td>
+                    <td>@user.Address</td>
+                    <td>@user.DateOfBirth?.ToString("yyyy-MM-dd")</td>
+                    <td>@user.Gender</td>
+                    <td>@user.Status</td>
+                    <td>@user.RoleId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

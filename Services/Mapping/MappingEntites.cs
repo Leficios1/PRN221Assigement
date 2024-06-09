@@ -14,12 +14,18 @@ namespace Services.Mapping
     {
         public MappingEntites()
         {
+            //User
             CreateMap<UserResponseDTO, User>().ReverseMap();
             CreateMap<UserResponseDTO, UserRequestDTO>().ReverseMap();
             CreateMap<UserRequestDTO, User>().ReverseMap();
+            //Pet
             CreateMap<PetResponseDTO, PetRequestDTO>().ReverseMap();
             CreateMap<PetRequestDTO,Pet>().ReverseMap();
             CreateMap<PetResponseDTO, Pet>().ReverseMap();
+            //Kennel
+            CreateMap<KennelRequestDTO, KennelResponseDTO>().ReverseMap();
+            CreateMap<KennelRequestDTO, Kennel>().ReverseMap();
+            CreateMap<KennelResponseDTO, Kennel>().ReverseMap();
         }
     }
 }

@@ -23,5 +23,6 @@ namespace BussinessObject.Model.Entities
         public DateTime CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
         public string Treatment { get; set; }
+        public int status { get; set; }
     }
 }

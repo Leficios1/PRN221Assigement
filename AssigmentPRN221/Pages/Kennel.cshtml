@@ -1,0 +1,27 @@
+﻿@page
+@model AssigmentPRN221.Pages.KennelModel
+@{
+    <h1>CURD Kennel</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>RoomNum</th>
+                <th>capacity</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var kennel in Model.listKennel)
+            {
+                <tr>
+                    <td>@kennel.KennelId</td>
+                    <td>@kennel.Name</td>
+                    <td>@kennel.RoomNumber</td>
+                    <td>@kennel.Capacity</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

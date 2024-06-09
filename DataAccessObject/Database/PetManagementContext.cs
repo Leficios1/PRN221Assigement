@@ -49,6 +49,18 @@ namespace DataAccessObject.Database
                 .WithMany()
                 .HasForeignKey(b => b.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            // Định nghĩa khóa ngoại cho quan hệ giữa KennelRecord và Kennel
+            modelBuilder.Entity<KennelRecord>()
+                .HasOne(kr => kr.Kennel)
+                .WithMany(k => k.KennelRecords)
+                .HasForeignKey(kr => kr.KennelId);
+
+            // Định nghĩa khóa ngoại cho quan hệ giữa KennelRecord và Pet
+            modelBuilder.Entity<KennelRecord>()
+                .HasOne(kr => kr.Pet)
+                .WithMany(p => p.kennelRecord)
+                .HasForeignKey(kr => kr.PetId);
         }
     }
 }

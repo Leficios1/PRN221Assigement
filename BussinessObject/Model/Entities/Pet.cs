@@ -29,5 +29,6 @@ namespace BussinessObject.Model.Entities
         //Navigation
         public ICollection<PetRecord> PetRecords { get; set; }
         public ICollection<BookingDetails> BookingDetails { get; set; }
+        public ICollection<KennelRecord> kennelRecord { get; set; }
     }
 }

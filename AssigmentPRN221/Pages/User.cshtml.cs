@@ -18,6 +18,7 @@ namespace AssigmentPRN221.Pages
 
         public async Task OnGet()
         {
+            
             Users = await _userServices.getAllUserAsync();
         }
     }

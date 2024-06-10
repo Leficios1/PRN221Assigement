@@ -112,7 +112,7 @@ namespace Services.Services
                 var kennel = _kennelRepository.GetById(dto.Id);
                 if(kennel != null)
                 {
-                    var data = _mapper.Map<Kennel>(dto);
+                    var data = await _mapper.Map(dto, kennel);
                     await _kennelRepository.UpdateKennel(data);
                     return "Update successful!";
                 }

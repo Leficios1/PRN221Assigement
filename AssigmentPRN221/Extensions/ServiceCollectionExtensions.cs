@@ -20,11 +20,12 @@ namespace AssigmentPRN221.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IKennelRepository, KennelRepository>();
+            services.AddScoped<IKennelRecordRepository, KennelRecordRepository>();
             //Register Services
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPetServices,PetServices>();
             services.AddScoped<IKennelService,KennelService>();
-
+            services.AddScoped<IKennelRecordService, KennelRecordService>();
             return services;
         }
     }

@@ -16,4 +16,10 @@ namespace BussinessObject.Model.ENUM
         active = 2,
         inProcess = 3
     }
+
+    public enum StatusKennel : short
+    {
+        emptyRoom = 0,
+        validRom = 1,
+    }
 }

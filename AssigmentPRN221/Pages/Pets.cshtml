@@ -1,7 +1,8 @@
 ﻿@page
 @model AssigmentPRN221.Pages.PetsModel
 @{
-    <h1>CURD Pets</h1>
+    <h1>CRUD Pets</h1>
+    <div id="petData" style="display: none;">@Model.PetDataJson</div>
 
     <table class="table">
         <thead>
@@ -11,8 +12,10 @@
                 <th>Pet Type</th>
                 <th>BirthDate</th>
                 <th>Pet Gender</th>
-                <th>Pet Secial Features</th>
+                <th>Pet Special Features</th>
+                <th>Status</th>
                 <th>User Name</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,15 +28,43 @@
                     <td>@pet.BirthDate.ToString("dd-MM-yyyy")</td>
                     <td>@(pet.PetGender ?? "Unknown")</td>
                     <td>@(pet.PetSecialFeatures ?? "Unknown")</td>
+                    <td>@pet.Status</td>
                     <td>@pet.UserName</td>
                     <td>
                         <button class="btn btn-primary" onclick="showUpdatePopup(@pet.Id)">Update</button>
                         <button class="btn btn-danger" onclick="showDeletePopup(@pet.Id)">Delete</button>
+                        <button class="btn btn-info" onclick="toggleDetails(@pet.Id)">Details</button>
+                    </td>
+                </tr>
+                <tr id="details-@pet.Id" style="display: none;">
+                    <td colspan="9">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Record Id</th>
+                                    <th>Vet Id</th>
+                                    <th>Date</th>
+                                    <th>Diagnosis</th>
+                                    <th>Treatment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var record in pet.petRecordDTOs)
+                                {
+                                    <tr>
+                                        <td>@record.Id</td>
+                                        <td>@record.VetId</td>
+                                        <td>@record.Date.ToString("dd-MM-yyyy")</td>
+                                        <td>@record.Diagnosis</td>
+                                        <td>@record.Treatment</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </td>
                 </tr>
             }
         </tbody>
-
     </table>
 
     <!-- Update Popup -->
@@ -53,6 +84,8 @@
                 <input type="text" id="updatePetGender" name="PetGender" />
                 <label for="updatePetSpecialFeatures">Special Features:</label>
                 <input type="text" id="updatePetSpecialFeatures" name="PetSpecialFeatures" />
+                <label for="updateStatus">Status:</label>
+                <input type="number" id="updateStatus" name="Status" required />
                 <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
@@ -70,4 +103,63 @@
             </form>
         </div>
     </div>
+}
+
+@section Scripts {
+    <script>
+        var petData = JSON.parse(document.getElementById('petData').textContent);
+
+        function showUpdatePopup(id) {
+            var selectedPet = petData.find(p => p.Id === id);
+            document.getElementById('updatePetId').value = selectedPet.Id;
+            document.getElementById('updatePetName').value = selectedPet.PetName;
+            document.getElementById('updatePetType').value = selectedPet.PetType;
+            document.getElementById('updatePetBirthDate').value = new Date(selectedPet.BirthDate).toISOString().substring(0, 10);
+            document.getElementById('updatePetGender').value = selectedPet.PetGender;
+            document.getElementById('updatePetSpecialFeatures').value = selectedPet.PetSecialFeatures;
+            document.getElementById('updateStatus').value = selectedPet.Status;
+            document.getElementById('updatePopup').style.display = 'block';
+        }
+
+        function closeUpdatePopup() {
+            document.getElementById('updatePopup').style.display = 'none';
+        }
+
+        function showDeletePopup(id) {
+            document.getElementById('deletePetId').value = id;
+            document.getElementById('deletePopup').style.display = 'block';
+        }
+
+        function closeDeletePopup() {
+            document.getElementById('deletePopup').style.display = 'none';
+        }
+
+        function updatePet() {
+            var formData = new FormData(document.getElementById('updateForm'));
+            fetch('@Url.Page("/Pets", "OnPostUpdateAsync")', {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload(); // Tải lại trang sau khi cập nhật thành công
+                    } else {
+                        alert('Failed to update pet.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('An error occurred while updating pet.');
+                });
+        }
+        function toggleDetails(id) {
+            var detailsRow = document.getElementById('details-' + id);
+            if (detailsRow.style.display === 'none') {
+                detailsRow.style.display = 'table-row';
+            } else {
+                detailsRow.style.display = 'none';
+            }
+        }
+    </script>
 }

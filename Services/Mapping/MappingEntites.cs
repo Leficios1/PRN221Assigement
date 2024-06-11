@@ -20,6 +20,9 @@ namespace Services.Mapping
             CreateMap<PetResponseDTO, PetRequestDTO>().ReverseMap();
             CreateMap<PetRequestDTO,Pet>().ReverseMap();
             CreateMap<PetResponseDTO, Pet>().ReverseMap();
+            CreateMap<Pet, PetRecordResponseDTO>().ReverseMap();
+            CreateMap<PetRecord, PetRecordDTO>().ReverseMap();
+            CreateMap<PetRecordResponseDTO, PetResponseDTO>().ReverseMap();
         }
     }
 }

@@ -11,8 +11,8 @@ namespace Services.Services.Interface
     public interface IPetServices
     {
         Task<PetResponseDTO> getPetByUserId(int userId);
-        Task<List<PetResponseDTO>> getAllPetsAsync();
-        Task<PetResponseDTO> updatePets(PetRequestDTO dto);
+        Task<List<PetRecordResponseDTO>> getAllPetsAsync();
+        Task updatePets(PetRequestDTO dto);
         Task<PetResponseDTO> createPet(PetRequestDTO dto);
         Task<bool> deletePet(int id);
     }

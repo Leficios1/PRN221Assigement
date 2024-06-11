@@ -1,0 +1,39 @@
+﻿@page
+@model BussinessObject.DTOs.Response.PetRecordResponseDTO
+@{
+    <div>
+        <h3>Pet Details</h3>
+        <p><strong>Pet Name:</strong> @Model.PetName</p>
+        <p><strong>Pet Type:</strong> @Model.PetType</p>
+        <p><strong>Birth Date:</strong> @Model.BirthDate.ToString("dd-MM-yyyy")</p>
+        <p><strong>Gender:</strong> @(Model.PetGender ?? "Unknown")</p>
+        <p><strong>Special Features:</strong> @(Model.PetSecialFeatures ?? "Unknown")</p>
+        <p><strong>Status:</strong> @Model.Status</p>
+        <p><strong>User Name:</strong> @Model.UserName</p>
+
+        <h4>Records</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Record Id</th>
+                    <th>Vet Id</th>
+                    <th>Date</th>
+                    <th>Diagnosis</th>
+                    <th>Treatment</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model.petRecordDTOs)
+                {
+                    <tr>
+                        <td>@record.Id</td>
+                        <td>@record.VetId</td>
+                        <td>@record.Date.ToString("dd-MM-yyyy")</td>
+                        <td>@record.Diagnosis</td>
+                        <td>@record.Treatment</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

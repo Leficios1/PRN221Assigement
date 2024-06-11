@@ -13,10 +13,7 @@ namespace AssigmentPRN221
             Extensions.ServiceCollectionExtensions.Register(builder.Services);
 
             //Conntect With DB
-            builder.Services.AddDbContext<PetManagementContext>(options =>
-            {
-                options.UseSqlServer(builder.Configuration.GetConnectionString("PetHealthCareSystem"));
-            });
+            builder.Services.AddDbContext<PetManagementContext>();
 
             var app = builder.Build();
 

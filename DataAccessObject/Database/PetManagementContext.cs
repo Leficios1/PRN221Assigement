@@ -1,5 +1,6 @@
 ﻿using BussinessObject.Model.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,10 @@ namespace DataAccessObject.Database
 {
     public class PetManagementContext : DbContext
     {
-        public PetManagementContext(DbContextOptions<PetManagementContext> options) : base(options)
+        private readonly IConfiguration _configuration;
+        public PetManagementContext(DbContextOptions<PetManagementContext> options, IConfiguration configuration) : base(options)
         {
+            _configuration = configuration;
         }
         public DbSet<User> Users { get; set; }
         public DbSet<Pet> Pets { get; set; }
@@ -23,6 +26,14 @@ namespace DataAccessObject.Database
         public DbSet<Vet> Vets { get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<BookingDetails> BookingDetails { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(_configuration.GetConnectionString("PetHealthCareSystem"));
+            }
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

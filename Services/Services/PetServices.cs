@@ -17,13 +17,15 @@ namespace Services.Services
     {
         private readonly IPetRepository _petRepository;
         private readonly IUserRepository _userRepository;
+        private readonly IPetRecordRepository _petRecordRepository;
         private readonly IMapper _mapper;
 
-        public PetServices(IPetRepository petRepository, IMapper mapper, IUserRepository userRepository)
+        public PetServices(IPetRepository petRepository, IMapper mapper, IUserRepository userRepository, IPetRecordRepository petRecordRepository)
         {
             _petRepository = petRepository;
             _mapper = mapper;
             _userRepository = userRepository;
+            _petRecordRepository = petRecordRepository;
         }
 
         public async Task<PetResponseDTO> createPet(PetRequestDTO dto)
@@ -63,7 +65,7 @@ namespace Services.Services
             }
         }
 
-        public async Task<List<PetResponseDTO>> getAllPetsAsync()
+        public async Task<List<PetRecordResponseDTO>> getAllPetsAsync()
         {
             try
             {
@@ -74,7 +76,7 @@ namespace Services.Services
                 }
                 else
                 {
-                    var petsDTO= _mapper.Map<List<PetResponseDTO>>(data);
+                    var petsDTO= _mapper.Map<List<PetRecordResponseDTO>>(data);
                     foreach(var petDTO in petsDTO)
                     {
                         var userName = await _petRepository.getUserNameByPetId(petDTO.Id);
@@ -86,6 +88,8 @@ namespace Services.Services
                         {
                             petDTO.UserName = "Unknown";
                         }
+                        var petRecord = await _petRecordRepository.getByPetId(petDTO.Id);
+                        petDTO.petRecordDTOs = _mapper.Map<List<PetRecordDTO>>(petRecord);
                     }
                     return petsDTO;
                 }
@@ -115,7 +119,7 @@ namespace Services.Services
             }
         }
 
-        public async Task<PetResponseDTO> updatePets(PetRequestDTO dto)
+        public async Task updatePets(PetRequestDTO dto)
         {
             try
             {
@@ -124,7 +128,6 @@ namespace Services.Services
                 if (flag)
                 {
                     var result = _mapper.Map<PetResponseDTO>(dto);
-                    return result;
                 }
                 else
                 {

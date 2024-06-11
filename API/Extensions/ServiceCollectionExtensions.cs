@@ -3,7 +3,7 @@ using DataAccessObject.Repository.Interface;
 using Services.Services;
 using Services.Services.Interface;
 
-namespace AssigmentPRN221.Extensions
+namespace API.Extensions
 {
     public static class ServiceCollectionExtensions
     {

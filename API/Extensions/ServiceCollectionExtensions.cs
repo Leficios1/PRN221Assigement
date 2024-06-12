@@ -9,7 +9,7 @@ namespace API.Extensions
     {
         public static IServiceCollection Register(this IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddControllers();
             services.AddEndpointsApiExplorer();
 
             //Config AutoMapper

@@ -10,9 +10,7 @@ public class Program
         // Add services to the container.
         Extensions.ServiceCollectionExtensions.Register(builder.Services);
 
-        builder.Services.AddControllers();
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-
         builder.Services.AddDbContext<PetManagementContext>();
 
         builder.Services.AddEndpointsApiExplorer();

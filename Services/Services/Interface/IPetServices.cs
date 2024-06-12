@@ -12,7 +12,7 @@ namespace Services.Services.Interface
     {
         Task<PetResponseDTO> getPetByUserId(int userId);
         Task<List<PetRecordResponseDTO>> getAllPetsAsync();
-        Task updatePets(PetRequestDTO dto);
+        Task<PetResponseDTO> updatePets(PetRequestDTO dto);
         Task<PetResponseDTO> createPet(PetRequestDTO dto);
         Task<bool> deletePet(int id);
     }

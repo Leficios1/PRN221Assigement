@@ -119,7 +119,7 @@ namespace Services.Services
             }
         }
 
-        public async Task updatePets(PetRequestDTO dto)
+        public async Task<PetResponseDTO> updatePets(PetRequestDTO dto)
         {
             try
             {
@@ -128,6 +128,7 @@ namespace Services.Services
                 if (flag)
                 {
                     var result = _mapper.Map<PetResponseDTO>(dto);
+                    return result;
                 }
                 else
                 {

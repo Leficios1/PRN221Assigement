@@ -83,7 +83,7 @@ namespace Services.Services
             }         
         }
 
-        public async Task<string> AddKennelRecord(KennelRecordRequestDTO dto)
+        public async Task<string> CheckInKennelRecord(KennelRecordRequestDTO dto)
         {
             try
             {
@@ -160,6 +160,23 @@ namespace Services.Services
             {
                 throw new Exception("Error database!");
             }
+        }
+
+        public async Task<string> CheckOutKennelRecord(int id)
+        {
+            var kennelRecord = await kennelRecordRepository.GetById(id);
+            if(kennelRecord == null)
+            {
+                return "Not found KennelRecord!";
+            }
+            else
+            {
+                kennelRecord.CheckOutDate = DateTime.Now;
+                kennelRecord.status = false;
+                kennelRecordRepository.UpdateKennelRecord(kennelRecord);
+                return "CheckOut Successful!";
+            }
+
         }
     }
 }

@@ -12,7 +12,8 @@ namespace Services.Services.Interface
     {
         Task<List<KennelRecordResponseDTO>> GetAll();
         Task<string> ReservationKennelRecord(KennelRecordRequestDTO dto);
-        Task<string> AddKennelRecord(KennelRecordRequestDTO dto);
+        Task<string> CheckInKennelRecord(KennelRecordRequestDTO dto);
         Task<string> UpdateKennelRecord(KennelRecordRequestDTO dto);
+        Task<string> CheckOutKennelRecord(int id);
     }
 }

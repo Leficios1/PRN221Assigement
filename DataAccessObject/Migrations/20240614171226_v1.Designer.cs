@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessObject.Migrations
 {
     [DbContext(typeof(PetManagementContext))]
-    [Migration("20240518083258_Db2")]
-    partial class Db2
+    [Migration("20240614171226_v1")]
+    partial class v1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,33 @@ namespace DataAccessObject.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("BussinessObject.Model.Entities.Booking", b =>
+                {
+                    b.Property<int>("BookingId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("BookingId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Booking");
+                });
 
             modelBuilder.Entity("BussinessObject.Model.Entities.BookingDetails", b =>
                 {
@@ -64,44 +91,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("BookingDetails");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Booking", b =>
-                {
-                    b.Property<int>("BookingId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BookingId"));
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Note")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PetId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("VetId")
-                        .HasColumnType("int");
-
-                    b.HasKey("BookingId");
-
-                    b.HasIndex("PetId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("VetId");
-
-                    b.ToTable("Booking");
-                });
-
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Kennel", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Kennel", b =>
                 {
                     b.Property<int>("KennelId")
                         .ValueGeneratedOnAdd()
@@ -119,12 +109,15 @@ namespace DataAccessObject.Migrations
                     b.Property<int>("RoomNumber")
                         .HasColumnType("int");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("KennelId");
 
                     b.ToTable("Kennel");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.KennelRecord", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.KennelRecord", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +125,7 @@ namespace DataAccessObject.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime>("CheckInDate")
+                    b.Property<DateTime?>("CheckInDate")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("CheckOutDate")
@@ -148,6 +141,9 @@ namespace DataAccessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("status")
+                        .HasColumnType("bit");
+
                     b.HasKey("Id");
 
                     b.HasIndex("KennelId");
@@ -157,7 +153,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("KennelRecord");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Pet", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Pet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -182,28 +178,26 @@ namespace DataAccessObject.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
+                    b.Property<short>("Status")
+                        .HasColumnType("smallint");
 
-                    b.Property<int?>("UserId1")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId1");
-
                     b.ToTable("Pet");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.PetRecord", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.PetRecord", b =>
                 {
-                    b.Property<int>("RecordId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RecordId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
@@ -220,7 +214,7 @@ namespace DataAccessObject.Migrations
                     b.Property<int>("VetId")
                         .HasColumnType("int");
 
-                    b.HasKey("RecordId");
+                    b.HasKey("Id");
 
                     b.HasIndex("PetId");
 
@@ -229,7 +223,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("PetRecord");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Role", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Role", b =>
                 {
                     b.Property<int>("RoleId")
                         .ValueGeneratedOnAdd()
@@ -246,7 +240,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("Role");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Service", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Service", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -266,7 +260,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("Service");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.User", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -313,7 +307,7 @@ namespace DataAccessObject.Migrations
                     b.ToTable("User");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Vet", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Vet", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -334,28 +328,39 @@ namespace DataAccessObject.Migrations
                     b.ToTable("Vet");
                 });
 
+            modelBuilder.Entity("BussinessObject.Model.Entities.Booking", b =>
+                {
+                    b.HasOne("BussinessObject.Model.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BussinessObject.Model.Entities.BookingDetails", b =>
                 {
-                    b.HasOne("DataAccessObject.Model.Entities.Booking", "booking")
+                    b.HasOne("BussinessObject.Model.Entities.Booking", "booking")
                         .WithMany()
                         .HasForeignKey("BookingId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.Pet", "Pet")
-                        .WithMany()
+                    b.HasOne("BussinessObject.Model.Entities.Pet", "Pet")
+                        .WithMany("BookingDetails")
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.Service", "service")
+                    b.HasOne("BussinessObject.Model.Entities.Service", "service")
                         .WithMany("BookingDetails")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.Vet", "vet")
-                        .WithMany()
+                    b.HasOne("BussinessObject.Model.Entities.Vet", "vet")
+                        .WithMany("BookingDetails")
                         .HasForeignKey("VetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -369,35 +374,16 @@ namespace DataAccessObject.Migrations
                     b.Navigation("vet");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Booking", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.KennelRecord", b =>
                 {
-                    b.HasOne("DataAccessObject.Model.Entities.Pet", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("PetId");
-
-                    b.HasOne("DataAccessObject.Model.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("DataAccessObject.Model.Entities.Vet", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("VetId");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("DataAccessObject.Model.Entities.KennelRecord", b =>
-                {
-                    b.HasOne("DataAccessObject.Model.Entities.Kennel", "Kennel")
+                    b.HasOne("BussinessObject.Model.Entities.Kennel", "Kennel")
                         .WithMany("KennelRecords")
                         .HasForeignKey("KennelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.Pet", "Pet")
-                        .WithMany()
+                    b.HasOne("BussinessObject.Model.Entities.Pet", "Pet")
+                        .WithMany("kennelRecord")
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -407,30 +393,26 @@ namespace DataAccessObject.Migrations
                     b.Navigation("Pet");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Pet", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Pet", b =>
                 {
-                    b.HasOne("DataAccessObject.Model.Entities.User", "User")
-                        .WithMany()
+                    b.HasOne("BussinessObject.Model.Entities.User", "User")
+                        .WithMany("Pets")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.User", null)
-                        .WithMany("Pets")
-                        .HasForeignKey("UserId1");
-
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.PetRecord", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.PetRecord", b =>
                 {
-                    b.HasOne("DataAccessObject.Model.Entities.Pet", "Pet")
+                    b.HasOne("BussinessObject.Model.Entities.Pet", "Pet")
                         .WithMany("PetRecords")
                         .HasForeignKey("PetId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("DataAccessObject.Model.Entities.Vet", "Vet")
+                    b.HasOne("BussinessObject.Model.Entities.Vet", "Vet")
                         .WithMany("PetRecords")
                         .HasForeignKey("VetId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -441,9 +423,9 @@ namespace DataAccessObject.Migrations
                     b.Navigation("Vet");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.User", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.User", b =>
                 {
-                    b.HasOne("DataAccessObject.Model.Entities.Role", "Roles")
+                    b.HasOne("BussinessObject.Model.Entities.Role", "Roles")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -452,36 +434,38 @@ namespace DataAccessObject.Migrations
                     b.Navigation("Roles");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Kennel", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Kennel", b =>
                 {
                     b.Navigation("KennelRecords");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Pet", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Pet", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("BookingDetails");
 
                     b.Navigation("PetRecords");
+
+                    b.Navigation("kennelRecord");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Role", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Role", b =>
                 {
                     b.Navigation("Users");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Service", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Service", b =>
                 {
                     b.Navigation("BookingDetails");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.User", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.User", b =>
                 {
                     b.Navigation("Pets");
                 });
 
-            modelBuilder.Entity("DataAccessObject.Model.Entities.Vet", b =>
+            modelBuilder.Entity("BussinessObject.Model.Entities.Vet", b =>
                 {
-                    b.Navigation("Bookings");
+                    b.Navigation("BookingDetails");
 
                     b.Navigation("PetRecords");
                 });

@@ -14,14 +14,15 @@ namespace BussinessObject.Model.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-        [ForeignKey("Id")]
+        [ForeignKey("PetId")]
         public int PetId {  get; set; }
         public Pet Pet { get; set; } = null!;
         [ForeignKey("KennelId")]
         public int KennelId {  get; set; }
         public Kennel Kennel { get; set; } = null!;
-        public DateTime CheckInDate { get; set; }
+        public DateTime? CheckInDate { get; set; }
         public DateTime? CheckOutDate { get; set; }
         public string Treatment { get; set; }
+        public bool status { get; set; }
     }
 }

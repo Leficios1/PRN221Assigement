@@ -22,6 +22,7 @@ namespace BussinessObject.Model.Entities
         public Pet Pet { get; set; }
         [ForeignKey("VetId")]
         public Vet vet {  get; set; }
+        [ForeignKey("BookingId")]
         public Booking booking { get; set; }
         [ForeignKey("ServiceId")]
         public Service service { get; set; }

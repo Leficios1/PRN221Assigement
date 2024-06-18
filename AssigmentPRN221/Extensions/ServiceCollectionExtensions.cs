@@ -23,6 +23,7 @@ namespace AssigmentPRN221.Extensions
             services.AddScoped<IVetRepository, VetRepository>();
             services.AddScoped<IKennelRepository, KennelRepository>();
             services.AddScoped<IKennelRecordRepository, KennelRecordRepository>();
+            services.AddScoped<IServiceSevices, ServiceServices>();
 
             //Register Services
             services.AddScoped<IUserServices, UserServices>();
@@ -30,8 +31,9 @@ namespace AssigmentPRN221.Extensions
             services.AddScoped<IPetRecordServices, PetRecordServices>();
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPetServices,PetServices>();
-            services.AddScoped<IKennelService,KennelService>();
-            services.AddScoped<IKennelRecordService, KennelRecordService>();
+            services.AddScoped<IKennelServices,KennelServices>();
+            services.AddScoped<IKennelRecordServices, KennelRecordServices>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
             return services;
         }
     }

@@ -7,9 +7,9 @@ namespace AssigmentPRN221.Pages
 {
     public class KennelModel : PageModel
     {
-        private readonly IKennelService _kennelService;
+        private readonly IKennelServices _kennelService;
         public List<KennelResponseDTO> listKennel { get; set; }
-        public KennelModel(IKennelService kennelService)
+        public KennelModel(IKennelServices kennelService)
         {
             _kennelService = kennelService;
         }

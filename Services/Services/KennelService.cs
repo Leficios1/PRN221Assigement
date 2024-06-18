@@ -67,17 +67,13 @@ namespace Services.Services
         {
             try
             {
-                var kennel = await _kennelRepository.GetAll();
-                if (kennel.IsNullOrEmpty()) 
-                {
-                    throw new Exception("data is empty!");
-                }
-                else
+                var kennel = await _kennelRepository.GetAll();  
+                if (!kennel.IsNullOrEmpty()) 
                 {
                     var data = _mapper.Map<List<KennelResponseDTO>>(kennel);
                     return data;
                 }
-                
+                return null;
             }
             catch (Exception ex)
             {
@@ -95,7 +91,7 @@ namespace Services.Services
                 var listData = _mapper.Map<List<KennelResponseDTO>>(listKennel);
                 if (listData.IsNullOrEmpty())
                 {
-                    throw new Exception("data empty!");
+                    return null;
                 }
                 return listData;
             }

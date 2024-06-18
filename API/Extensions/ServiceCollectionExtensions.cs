@@ -21,10 +21,13 @@ namespace API.Extensions
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetRecordRepository, PetRecordRepository>();
             services.AddScoped<IVetRepository, VetRepository>();
+            services.AddScoped<IKennelRepository, KennelRepository>();
             //Register Services
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPetServices,PetServices>();
             services.AddScoped<IPetRecordServices, PetRecordServices>();
+            services.AddScoped<IKennelService, KennelService>();
+
 
             return services;
         }

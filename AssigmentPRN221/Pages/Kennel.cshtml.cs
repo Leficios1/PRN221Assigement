@@ -1,15 +1,16 @@
 using BussinessObject.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Services.Services;
 using Services.Services.Interface;
 
 namespace AssigmentPRN221.Pages
 {
     public class KennelModel : PageModel
     {
-        private readonly IKennelServices _kennelService;
+        private readonly IKennelService _kennelService;
         public List<KennelResponseDTO> listKennel { get; set; }
-        public KennelModel(IKennelServices kennelService)
+        public KennelModel(IKennelService kennelService)
         {
             _kennelService = kennelService;
         }

@@ -9,12 +9,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessObject.Repository.Interface
 {
-    public interface IServiceRepository : IBaseRepository<Service>
+    public interface IServiceRepository
     {
         Task<List<Service>> GetAll();
-        //Task<Service> GetById(int id);
-        Task<Service> Update(Service entity);
-        Task<string> DeleteService(int id);
+        Task<Service> GetById(int id);
+        Task Update(Service entity);
+        Task AddService(Service entity);
+        Task DeleteService(Service entity);
         Task<List<Service>> GetAllValid();
 
     }

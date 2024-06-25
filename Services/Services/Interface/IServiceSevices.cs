@@ -13,7 +13,8 @@ namespace Services.Services.Interface
         Task<List<ServiceResponseDTO>> GetAllService();
         Task<List<ServiceResponseDTO>> GetAllValidService();
         Task<ServiceResponseDTO> GetServiceById(int id);
-        Task<ServiceResponseDTO> UpdateService(ServiceRequestDTO dto);
+        Task<string> UpdateService(ServiceRequestDTO dto);
         Task<string> DeleteService(int id);
+        Task<string> AddService(ServiceRequestDTO dto);
     }
 }

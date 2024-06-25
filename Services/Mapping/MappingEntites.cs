@@ -36,7 +36,7 @@ namespace Services.Mapping
             CreateMap<KennelRecordRequestDTO, KennelRecord>().ReverseMap();
             CreateMap<KennelRecordResponseDTO, KennelRecord>().ReverseMap();
 
-            //KennelRecord
+            //Service entity
             CreateMap<ServiceRequestDTO, ServiceResponseDTO>().ReverseMap();
             CreateMap<ServiceRequestDTO, Service>().ReverseMap();
             CreateMap<ServiceResponseDTO, Service>().ReverseMap();

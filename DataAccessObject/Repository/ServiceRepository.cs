@@ -12,39 +12,48 @@ using System.Threading.Tasks;
 
 namespace DataAccessObject.Repository
 {
-    public class ServiceRepository : BaseRepository<Service>,IServiceRepository
+    public class ServiceRepository : IServiceRepository
     {
-        public ServiceRepository(PetManagementContext dbcontext) : base(dbcontext)
+        private readonly PetManagementContext _context;
+        public ServiceRepository(PetManagementContext dbcontext)
         {
+            _context = dbcontext;
         }
 
-        public async Task<string> DeleteService(int id)
+        public async Task AddService(Service entity)
         {
-            var result = await this.GetById(id);
-            this.Delete(result);
-            await this.SaveChangesAsync();
-            return "Delete Successful!";
+            await _context.Services.AddAsync(entity);
+            _context.SaveChanges();
+        }
+
+        public async Task DeleteService(Service entity)
+        {
+            _context.Services.Update(entity);
+            await _context.SaveChangesAsync();
+           
         }
 
         public async Task<List<Service>> GetAll()
-        { 
-            return await _
+        {
+            return await _context.Services.ToListAsync();
 
         }
 
         public async Task<List<Service>> GetAllValid()
         {
-            return await _dbcontext.Services.Where(s => s.status == true).ToListAsync();
+            return await _context.Services.Where(s => s.status == true).ToListAsync();
         }
 
         public async Task<Service> GetById(int id)
         {
-            return await _dbcontext.Services.FindAsync(id);
+            return await _context.Services.Where(s => s.Id == id).SingleOrDefaultAsync();
         }
 
-        public Task<Service> Update(Service entity)
+        public async Task Update(Service entity)
         {
-            throw new NotImplementedException();
+            _context.Services.Update(entity);
+            await _context.SaveChangesAsync();
+            
         }
     }
 }

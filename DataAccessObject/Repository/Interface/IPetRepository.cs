@@ -9,7 +9,7 @@ namespace DataAccessObject.Repository.Interface
 {
     public interface IPetRepository : IBaseRepository<Pet>
     {
-        public Task<Pet> getPetByUserId(int userid);
+        public Task<List<Pet>> getPetByUserId(int userid);
         public Task<List<Pet>> getAllPets();
         public Task<bool> UpdatePet(Pet dto);
         public Task<User> getUserNameByPetId(int id);

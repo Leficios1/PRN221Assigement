@@ -15,5 +15,6 @@ namespace Services.Services.Interface
 
         Task<UserRequestDTO> CreateAccount(UserRequestDTO account);
 
+        Task<int> Login(string email, string password);
     }
 }

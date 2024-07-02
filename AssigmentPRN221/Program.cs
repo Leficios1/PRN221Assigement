@@ -29,6 +29,7 @@ namespace AssigmentPRN221
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseSession();
 
             app.UseAuthorization();
 

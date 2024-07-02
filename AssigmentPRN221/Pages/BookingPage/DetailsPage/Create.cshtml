@@ -1,0 +1,64 @@
+﻿@page
+@model AssigmentPRN221.Pages.BookingPage.DetailsPage.CreateModel
+
+@{
+    ViewData["Title"] = "Create Booking Details";
+    Layout = "_userLayout";
+
+}
+<head>
+    <link rel="stylesheet" type="text/css" href="~/css/CreateStyle.css">
+</head>
+
+<h1>Create Booking</h1>
+
+<h4>Booking</h4>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Booking.Date" class="control-label"></label>
+                <input asp-for="Booking.Date" class="form-control" />
+                <span asp-validation-for="Booking.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Booking.Note" class="control-label"></label>
+                <textarea asp-for="Booking.Note" class="form-control"></textarea>
+                <span asp-validation-for="Booking.Note" class="text-danger"></span>
+            </div>
+
+            <h4>Booking Details</h4>
+            <div class="form-group">
+                @for (int i = 0; i < Model.Booking.bookingDetails.Count; i++)
+                {
+                    <div>
+                        <label asp-for="Booking.bookingDetails[i].PetId" class="control-label">Pet</label>
+                        <select asp-for="Booking.bookingDetails[i].PetId" class="form-control" asp-items="Model.Pets"></select>
+                        <span asp-validation-for="Booking.bookingDetails[i].PetId" class="text-danger"></span>
+
+                        <label asp-for="Booking.bookingDetails[i].VetId" class="control-label">Vet</label>
+                        <select asp-for="Booking.bookingDetails[i].VetId" class="form-control" asp-items="Model.Vets"></select>
+                        <span asp-validation-for="Booking.bookingDetails[i].VetId" class="text-danger"></span>
+
+                        <label asp-for="Booking.bookingDetails[i].ServiceId" class="control-label">Service</label>
+                        <select asp-for="Booking.bookingDetails[i].ServiceId" class="form-control" asp-items="Model.Services"></select>
+                        <span asp-validation-for="Booking.bookingDetails[i].ServiceId" class="text-danger"></span>
+
+                    </div>
+                }
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,0 +1,70 @@
+﻿@page
+@model AssigmentPRN221.Pages.PetsPage.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+    ViewData["IsIndexPage"] = true;
+    Layout = "_userLayout";
+
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].PetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].PetType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].BirthDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].PetGender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].PetSecialFeatures)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Pet[0].Status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Pet)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PetType)
+                </td>
+                <td>
+                    @item.BirthDate.ToString("dd/MM/yyyy")
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PetGender)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PetSecialFeatures)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

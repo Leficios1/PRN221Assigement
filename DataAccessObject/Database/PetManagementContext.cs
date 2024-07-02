@@ -12,6 +12,11 @@ namespace DataAccessObject.Database
     public class PetManagementContext : DbContext
     {
         private readonly IConfiguration _configuration;
+
+        public PetManagementContext()
+        {
+        }
+
         public PetManagementContext(DbContextOptions<PetManagementContext> options, IConfiguration configuration) : base(options)
         {
             _configuration = configuration;
@@ -29,10 +34,7 @@ namespace DataAccessObject.Database
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
                 optionsBuilder.UseSqlServer(_configuration.GetConnectionString("PetHealthCareSystem"));
-            }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

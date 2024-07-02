@@ -1,0 +1,89 @@
+﻿@page "{id:int}"
+@model AssigmentPRN221.Pages.BookingPage.DetailsPage.IndexModel
+@{
+    ViewData["Title"] = "Booking Details";
+    Layout = "_userLayout";
+
+}
+
+<h1>Booking Details</h1>
+
+<div>
+    <h4>Booking</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingResponseDTO.UserName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingResponseDTO.UserName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingResponseDTO.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingResponseDTO.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingResponseDTO.Status)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingResponseDTO.Status)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.BookingResponseDTO.Note)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.BookingResponseDTO.Note)
+        </dd>
+    </dl>
+</div>
+
+<h4>Booking Details</h4>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].PetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].VetName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].ServiceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].Status)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.BookingResponseDTO.bookingDetails)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.VetName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServiceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Status)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    <a asp-page="/BookingPage/Index">Back to List</a>
+</div>

@@ -48,9 +48,9 @@ namespace DataAccessObject.Repository
             return data;
         }
 
-        public async Task<Pet> getPetByUserId(int userid)
+        public async Task<List<Pet>> getPetByUserId(int userid)
         {
-            var data = await _context.Pets.Where(x => x.UserId == userid).SingleOrDefaultAsync();
+            var data = await _context.Pets.Where(x => x.UserId == userid).ToListAsync();
             return data;
         }
 

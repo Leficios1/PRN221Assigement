@@ -12,8 +12,9 @@ namespace AssigmentPRN221.Pages
             _logger = logger;
         }
 
-        public void OnGet()
+        public IActionResult OnPostLogin()
         {
+            return RedirectToPage("./LoginPage");
 
         }
     }

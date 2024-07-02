@@ -11,10 +11,11 @@ namespace DataAccessObject.Repository.Interface
 {
     public interface IBookingRepository : IBaseRepository<Booking>
     {
-        public Task<BookingResponseDTO> getAllBookingAsync();
+        public Task<List<Booking>> getAllBookingAsync();
         public Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto);
         public Task<bool> deleteBookingAsync(int id);
         public Task<bool> createBooking(BookingRequestDTO dto);
         public Task<BookingResponseDTO> getById(int id);
+        public Task<List<DateTime>> getDateTimeBookingByVetId(int vetId);
     }
 }

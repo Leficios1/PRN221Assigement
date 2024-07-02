@@ -14,7 +14,7 @@ namespace BussinessObject.DTOs.Response
         public DateTime Date { get; set; }
         public int Status { get; set; }
         public string? Note { get; set; }
-        public List<BookingDetailsDTO> bookingDetails {  get; set; }
+        public List<BookingDetailsDTO>? bookingDetails {  get; set; }
     }
 
     public class BookingDetailsDTO

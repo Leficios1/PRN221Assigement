@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AssigmentPRN221\AssigmentPRN221.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
   </ItemGroup>
 

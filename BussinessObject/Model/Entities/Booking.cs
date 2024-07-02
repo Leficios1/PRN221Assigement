@@ -16,5 +16,9 @@ namespace BussinessObject.Model.Entities
         public DateTime Date { get; set; }
         public int Status { get; set; }
         public string? Note { get; set; }
+
+        // Navigation property
+        public ICollection<BookingDetails> BookingDetails { get; set; }
+
     }
 }

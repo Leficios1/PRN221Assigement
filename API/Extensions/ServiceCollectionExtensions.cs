@@ -9,7 +9,7 @@ namespace API.Extensions
     {
         public static IServiceCollection Register(this IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddRazorPages();
             services.AddEndpointsApiExplorer();
 
             //Config AutoMapper
@@ -21,11 +21,19 @@ namespace API.Extensions
             services.AddScoped<IPetRepository, PetRepository>();
             services.AddScoped<IPetRecordRepository, PetRecordRepository>();
             services.AddScoped<IVetRepository, VetRepository>();
+            services.AddScoped<IKennelRepository, KennelRepository>();
+            services.AddScoped<IKennelRecordRepository, KennelRecordRepository>();
+            services.AddScoped<IBookingRepository, BookingRepository>();    
+
             //Register Services
             services.AddScoped<IUserServices, UserServices>();
             services.AddScoped<IPetServices,PetServices>();
             services.AddScoped<IPetRecordServices, PetRecordServices>();
-
+            services.AddScoped<IUserServices, UserServices>();
+            services.AddScoped<IPetServices,PetServices>();
+            services.AddScoped<IKennelService,KennelService>();
+            services.AddScoped<IKennelRecordService, KennelRecordService>();
+            services.AddScoped<IBookingServices, BookingServices>();
             return services;
         }
     }

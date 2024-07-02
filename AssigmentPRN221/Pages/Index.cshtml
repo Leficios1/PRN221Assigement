@@ -1,10 +1,131 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+    ViewData["Title"] = "Welcome to PetCare";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">PetHealtCareSystem</a>.</p>
+<div class="container mt-5">
+    <div class="jumbotron text-center">
+        <h1 class="display-4">Welcome to PetCare</h1>
+        <p class="lead">Your trusted partner in pet care and happiness</p>
+        <hr class="my-4">
+        <p>We provide top-notch services to ensure your furry friends are healthy and happy.</p>
+        <a class="btn btn-primary btn-lg" href="#services" role="button">Learn More</a>
+    </div>
+
+    <div class="row mt-5" id="services">
+        <div class="col-md-4">
+            <div class="card">
+                <img src="~/images/grooming.jpg" class="card-img-top" alt="Grooming">
+                <div class="card-body">
+                    <h5 class="card-title">Grooming</h5>
+                    <p class="card-text">Professional grooming services to keep your pet looking their best.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="~/images/boarding.jpg" class="card-img-top" alt="Boarding">
+                <div class="card-body">
+                    <h5 class="card-title">Boarding</h5>
+                    <p class="card-text">Safe and comfortable boarding facilities for when you're away.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <img src="~/images/veterinary.jpg" class="card-img-top" alt="Veterinary Care">
+                <div class="card-body">
+                    <h5 class="card-title">Veterinary Care</h5>
+                    <p class="card-text">Expert veterinary services to keep your pet healthy and happy.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2>Why Choose Us?</h2>
+        <ul class="list-unstyled">
+            <li>Experienced and caring staff</li>
+            <li>State-of-the-art facilities</li>
+            <li>Personalized care for each pet</li>
+            <li>Convenient online booking</li>
+        </ul>
+    </div>
+
+    <div class="text-center mt-5">
+        <h2>Ready to give your pet the best care?</h2>
+        <a class="btn btn-success btn-lg mt-3" asp-page="/BookingPage/Index" role="button">Book Now</a>
+    </div>
 </div>
+
+<style>
+    body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+}
+
+.jumbotron {
+    background-color: #e9ecef;
+    border-radius: 15px;
+    padding: 4rem 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.jumbotron h1 {
+    color: #007bff;
+    font-weight: 700;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.card-title {
+    color: #007bff;
+    font-weight: 600;
+}
+
+.list-unstyled li {
+    padding: 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.btn-success {
+    background-color: #28a745;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+}
+
+</style>

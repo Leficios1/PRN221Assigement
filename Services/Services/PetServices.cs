@@ -99,7 +99,7 @@ namespace Services.Services
             }
         }
 
-        public async Task<PetResponseDTO> getPetByUserId(int userId)
+        public async Task<List<PetResponseDTO>> getPetByUserId(int userId)
         {
             try
             {
@@ -110,7 +110,7 @@ namespace Services.Services
                 }
                 else
                 {
-                    var result = _mapper.Map<PetResponseDTO>(data);
+                    var result = _mapper.Map<List<PetResponseDTO>>(data);
                     return result;
                 }
             }catch(Exception ex)

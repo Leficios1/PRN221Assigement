@@ -20,7 +20,7 @@ namespace Services.Mapping
             CreateMap<UserRequestDTO, User>().ReverseMap();
             //Pet
             CreateMap<PetResponseDTO, PetRequestDTO>().ReverseMap();
-            CreateMap<PetRequestDTO,Pet>().ReverseMap();
+            CreateMap<PetRequestDTO, Pet>().ReverseMap();
             CreateMap<PetResponseDTO, Pet>().ReverseMap();
             CreateMap<Pet, PetRecordResponseDTO>().ReverseMap();
             CreateMap<PetRecord, PetRecordDTO>().ReverseMap();
@@ -34,6 +34,19 @@ namespace Services.Mapping
             CreateMap<KennelRecordRequestDTO, KennelRecordResponseDTO>().ReverseMap();
             CreateMap<KennelRecordRequestDTO, KennelRecord>().ReverseMap();
             CreateMap<KennelRecordResponseDTO, KennelRecord>().ReverseMap();
+
+            //Booking
+            CreateMap<BookingRequestDTO, Booking>().ReverseMap();
+            CreateMap<BookingDetailsRequestDTO, BookingDetails>().ReverseMap();
+            CreateMap<Booking, BookingResponseDTO>()
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.Name))
+                .ForMember(dest => dest.bookingDetails, opt => opt.MapFrom(src => src.BookingDetails)).ReverseMap();
+
+            //Booking Details
+            CreateMap<BookingDetails, BookingDetailsDTO>()
+                .ForMember(dest => dest.PetName, opt => opt.MapFrom(src => src.Pet.PetName))
+                .ForMember(dest => dest.VetName, opt => opt.MapFrom(src => src.vet.Name))
+                .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.service.ServiceName)).ReverseMap();
         }
     }
 }

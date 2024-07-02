@@ -1,0 +1,16 @@
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+@if (HttpContextAccessor.HttpContext.Session.GetString("UserEmail") == null)
+{
+    <li class="nav-item">
+        <a class="nav-link text-dark" asp-page="/LoginPage">Login</a>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <form method="post" asp-page-handler="Logout">
+            <button type="submit" class="btn btn-link nav-link text-dark">Logout</button>
+        </form>
+    </li>
+}

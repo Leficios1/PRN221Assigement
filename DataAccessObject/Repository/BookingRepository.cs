@@ -2,6 +2,7 @@
 using BussinessObject.DTOs.Request;
 using BussinessObject.DTOs.Response;
 using BussinessObject.Model.Entities;
+using BussinessObject.Model.ENUM;
 using DataAccessObject.Database;
 using DataAccessObject.Repository.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -25,32 +26,40 @@ namespace DataAccessObject.Repository
 
         public async Task<bool> createBooking(BookingRequestDTO dto)
         {
-            using(var trasaction = _context.Database.BeginTransaction())
+            using (var trasaction = _context.Database.BeginTransaction())
             {
                 try
                 {
-                    if(dto.BookingId != 0)
+                    if (dto.BookingId != 0)
                     {
                         throw new Exception("Do not Input ID when create");
                     }
-                    var data = _mapper.Map<Booking>(dto);
+                    var data = new Booking();
+                    data.Date = dto.Date;
+                    data.UserId = dto.UserId;
+                    data.Status = (int)StatusEnum.active;
+                    data.Note = dto.Note;
                     _context.Bookings.Add(data);
                     await _context.SaveChangesAsync();
-                    foreach(var details in dto.bookingDetails)
+
+                    foreach (var details in dto.bookingDetails)
                     {
-                        if(await _context.Vets.Where(x => x.Id == details.VetId).SingleOrDefaultAsync() == null ||
-                            await _context.Services.Where(x => x.Id == details.ServiceId).SingleOrDefaultAsync() == null)
+                        if (await _context.Vets.Where(x => x.Id == details.VetId).FirstOrDefaultAsync() == null ||
+                            await _context.Services.Where(x => x.Id == details.ServiceId).FirstOrDefaultAsync() == null)
                         {
                             return false;
                         }
                         var result = _mapper.Map<BookingDetails>(details);
                         result.BookingId = data.BookingId;
+                        result.Price = (await _context.Services.Where(x => x.Id == details.ServiceId).SingleOrDefaultAsync()).ServiceCharge;
+                        result.Status = (int)StatusEnum.active;
                         _context.BookingDetails.Add(result);
                     }
                     await _context.SaveChangesAsync();
                     await trasaction.CommitAsync();
                     return true;
-                }catch (Exception ex)
+                }
+                catch (Exception ex)
                 {
                     await trasaction.RollbackAsync();
                     throw new Exception(ex.Message);
@@ -63,14 +72,49 @@ namespace DataAccessObject.Repository
             throw new NotImplementedException();
         }
 
-        public Task<BookingResponseDTO> getAllBookingAsync()
+        public async Task<List<Booking>> getAllBookingAsync()
         {
-            throw new NotImplementedException();
+            var data = await _context.Bookings
+        .Include(b => b.User)  // Include User information
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.Pet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.vet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.service)
+        .ToListAsync(); ;
+            return data;
         }
 
-        public Task<BookingResponseDTO> getById(int id)
+        public async Task<BookingResponseDTO> getById(int id)
         {
-            throw new NotImplementedException();
+            var booking = await _context.Bookings
+                       .Include(b => b.User)
+                       .Include(b => b.BookingDetails)
+                           .ThenInclude(d => d.Pet)
+                       .Include(b => b.BookingDetails)
+                           .ThenInclude(d => d.vet)
+                       .Include(b => b.BookingDetails)
+                           .ThenInclude(d => d.service)
+                       .FirstOrDefaultAsync(b => b.BookingId == id);
+
+            if (booking == null)
+            {
+                throw new Exception("Not found bookingId");
+            }
+
+            var bookingDTO = _mapper.Map<BookingResponseDTO>(booking);
+            bookingDTO.bookingDetails = _mapper.Map<List<BookingDetailsDTO>>(booking.BookingDetails);
+
+            return bookingDTO;
+        }
+
+        public async Task<List<DateTime>> getDateTimeBookingByVetId(int vetId)
+        {
+            return await _context.BookingDetails
+                        .Where(b => b.VetId == vetId)
+                        .Select(b => b.booking.Date)
+                        .ToListAsync();
         }
 
         public Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto)

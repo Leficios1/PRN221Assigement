@@ -10,11 +10,13 @@ namespace API.Controllers
     {
         private readonly IPetRecordServices _petRecordservices;
         private readonly IPetServices _petServices;
+        private readonly IBookingServices _bookingssServices;
 
-        public TestController(IPetRecordServices petRecordservices, IPetServices petServices )
+        public TestController(IPetRecordServices petRecordservices, IPetServices petServices, IBookingServices bookingServices )
         {
             _petRecordservices = petRecordservices;
             _petServices = petServices;
+            _bookingssServices = bookingServices;
         }
 
         [HttpGet("getPetRecordById/{id}")]
@@ -28,6 +30,18 @@ namespace API.Controllers
         public async Task<IActionResult> updatePet([FromBody] PetRequestDTO dto)
         {
             var response = await _petServices.updatePets(dto);
+            return Ok(response);
+        }
+        [HttpPost("CreateBooking")]
+        public async Task<IActionResult> createBooking(BookingRequestDTO dto)
+        {
+            var response = await _bookingssServices.createBooking(dto);
+            return Ok(response);
+        }
+        [HttpGet("GetBookingDetails/{id}")]
+        public async Task<IActionResult> getById([FromRoute] int id)
+        {
+            var response = await _bookingssServices.getBookingDetailsByBookingId(id);
             return Ok(response);
         }
     }

@@ -10,7 +10,7 @@ namespace Services.Services.Interface
 {
     public interface IPetServices
     {
-        Task<PetResponseDTO> getPetByUserId(int userId);
+        Task<List<PetResponseDTO>> getPetByUserId(int userId);
         Task<List<PetRecordResponseDTO>> getAllPetsAsync();
         Task<PetResponseDTO> updatePets(PetRequestDTO dto);
         Task<PetResponseDTO> createPet(PetRequestDTO dto);

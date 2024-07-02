@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace AssigmentPRN221.Pages
+namespace AssigmentPRN221.Pages.UserPage
 {
-    public class PetRecordModel : PageModel
+    public class IndexModel : PageModel
     {
         public void OnGet()
         {

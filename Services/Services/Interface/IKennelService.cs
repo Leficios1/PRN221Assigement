@@ -16,5 +16,6 @@ namespace Services.Services.Interface
         Task<List<KennelResponseDTO>> GetAllKennelInvalid();
         Task<string> UpdateKennel(KennelRequestDTO dto);
         Task<string> DeleteKennel(int id);
+        Task<Kennel> GetKennelById(int id);
     }
 }

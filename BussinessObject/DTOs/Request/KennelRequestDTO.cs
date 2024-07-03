@@ -12,6 +12,7 @@ namespace BussinessObject.DTOs.Request
         public string Name { get; set; }
         public int RoomNumber { get; set; }
         public int Capacity { get; set; }
+        public bool status { get; set; }
 
     }
 }

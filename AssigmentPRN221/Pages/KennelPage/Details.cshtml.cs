@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 
-namespace AssigmentPRN221.Pages.ServicePage
+namespace AssigmentPRN221.Pages.KennelPage
 {
     public class DetailsModel : PageModel
     {
@@ -19,23 +19,23 @@ namespace AssigmentPRN221.Pages.ServicePage
             _context = context;
         }
 
-      public Service Service { get; set; } = default!; 
+      public Kennel Kennel { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.Kennels == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            var kennel = await _context.Kennels.FirstOrDefaultAsync(m => m.KennelId == id);
+            if (kennel == null)
             {
                 return NotFound();
             }
             else 
             {
-                Service = service;
+                Kennel = kennel;
             }
             return Page();
         }

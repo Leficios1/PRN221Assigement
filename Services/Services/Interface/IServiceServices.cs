@@ -1,4 +1,6 @@
-﻿using BussinessObject.Model.Entities;
+﻿using BussinessObject.DTOs.Request;
+using BussinessObject.DTOs.Response;
+using BussinessObject.Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +11,11 @@ namespace Services.Services.Interface
 {
     public interface IServiceServices
     {
-        Task<List<Service>> getAll();
+        Task<List<ServiceResponseDTO>> GetAllService();
+        Task<List<ServiceResponseDTO>> GetAllValidService();
+        Task<ServiceResponseDTO> GetServiceById(int id);
+        Task<string> UpdateService(ServiceRequestDTO dto);
+        Task<string> DeleteService(int id);
+        Task<string> AddService(ServiceRequestDTO dto);
     }
 }

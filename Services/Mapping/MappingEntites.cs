@@ -47,6 +47,11 @@ namespace Services.Mapping
                 .ForMember(dest => dest.PetName, opt => opt.MapFrom(src => src.Pet.PetName))
                 .ForMember(dest => dest.VetName, opt => opt.MapFrom(src => src.vet.Name))
                 .ForMember(dest => dest.ServiceName, opt => opt.MapFrom(src => src.service.ServiceName)).ReverseMap();
+
+            //Service entity
+            CreateMap<ServiceRequestDTO, ServiceResponseDTO>().ReverseMap();
+            CreateMap<ServiceRequestDTO, Service>().ReverseMap();
+            CreateMap<ServiceResponseDTO, Service>().ReverseMap();
         }
     }
 }

@@ -49,7 +49,7 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage
             var userInfo = await _accountService.GetAccountInfoByEmail(email);
             var pets = await _petServices.getPetByUserId(userInfo.Id);
             var vets = await _vetServices.getAll();
-            var services = await _serviceServices.getAll();
+            var services = await _serviceServices.GetAllService();
 
             Pets = new SelectList((System.Collections.IEnumerable)pets, "Id", "PetName");
             Vets = new SelectList(vets, "Id", "Name");

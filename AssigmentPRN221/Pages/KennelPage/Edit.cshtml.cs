@@ -59,17 +59,15 @@ namespace AssigmentPRN221.Pages.KennelPage
                 kennelRequestDTO.status = Kennel.status;
 
                 var message = await _kennelService.UpdateKennel(kennelRequestDTO);
-                if(message.Equals("not found kennel!"))
+                if(message.Equals("Update successful!"))
+                {
+                    return RedirectToPage("./Details", new { id = kennelRequestDTO.Id });
+                }
+                else
                 {
                     ViewData["Message"] = message;
                     return Page();
                 }
-                else
-                {
-                    return RedirectToPage("./Details", new { id = kennelRequestDTO.Id });
-                }
-
-
             }
             catch (DbUpdateConcurrencyException)
             {

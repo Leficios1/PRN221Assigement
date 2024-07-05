@@ -47,7 +47,7 @@ namespace DataAccessObject.Repository
 
         public async Task DeleteKennel(Kennel kennel)
         {
-            _context.Kennels.Remove(kennel);
+            _context.Kennels.Update(kennel);
             _context.SaveChanges();
         }
     }

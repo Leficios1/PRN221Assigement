@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Services.Services
 {
@@ -55,12 +56,13 @@ namespace Services.Services
             try
             {
                 var kennel = await _kennelRepository.GetById(id);
-                if (kennel != null)
+                if (kennel == null)
                 {
                     throw new Exception("Not found Kennel!");
                 }
                 else
                 {
+                    kennel.status = false;
                     _kennelRepository.DeleteKennel(kennel);
                     return "remove kennel successful!";
                 }
@@ -133,9 +135,26 @@ namespace Services.Services
                 var kennel = await _kennelRepository.GetById(dto.Id);
                 if(kennel != null)
                 {
-                    var data = _mapper.Map(dto, kennel);    
-                    await _kennelRepository.UpdateKennel(data);
-                    return "Update successful!";
+                    if (kennel.RoomNumber == dto.RoomNumber)
+                    {
+                        var data = _mapper.Map(dto, kennel);
+                        await _kennelRepository.UpdateKennel(data);
+                        return "Update successful!";
+                    }
+                    else
+                    {
+                        var ListKenel = await _kennelRepository.GetAll();
+                        foreach (var item in ListKenel)
+                        {
+                            if (dto.RoomNumber == item.RoomNumber)
+                            {
+                                return "Dupplicate RoomNumber!";
+                            }
+                        }
+                        var data = _mapper.Map(dto, kennel);
+                        await _kennelRepository.UpdateKennel(data);
+                        return "Update successful!";
+                    }
                 }
                 else
                 {

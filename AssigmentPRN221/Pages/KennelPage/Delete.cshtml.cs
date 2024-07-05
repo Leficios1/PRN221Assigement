@@ -7,29 +7,35 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
+using AutoMapper;
+using Services.Services.Interface;
+using BussinessObject.DTOs.Request;
 
 namespace AssigmentPRN221.Pages.KennelPage
 {
     public class DeleteModel : PageModel
     {
-        private readonly DataAccessObject.Database.PetManagementContext _context;
+        private readonly IKennelService _kennelService;
+        private readonly IMapper _mapper;
 
-        public DeleteModel(DataAccessObject.Database.PetManagementContext context)
+
+        public DeleteModel(IKennelService kennelService, IMapper mapper)
         {
-            _context = context;
+            _kennelService = kennelService;
+            _mapper = mapper;
         }
 
         [BindProperty]
       public Kennel Kennel { get; set; } = default!;
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null || _context.Kennels == null)
+            if (id == null)
             {
                 return NotFound();
             }
 
-            var kennel = await _context.Kennels.FirstOrDefaultAsync(m => m.KennelId == id);
+            var kennel = await _kennelService.GetKennelById(id);
 
             if (kennel == null)
             {
@@ -42,22 +48,21 @@ namespace AssigmentPRN221.Pages.KennelPage
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
-            if (id == null || _context.Kennels == null)
+            if (id == null)
             {
                 return NotFound();
             }
-            var kennel = await _context.Kennels.FindAsync(id);
+            var kennel = await _kennelService.GetKennelById(id);
 
             if (kennel != null)
             {
                 Kennel = kennel;
-                _context.Kennels.Remove(Kennel);
-                await _context.SaveChangesAsync();
+                await _kennelService.DeleteKennel(id);
             }
 
-            return RedirectToPage("./Index");
+            return RedirectToPage("./KennelWelcom");
         }
     }
 }

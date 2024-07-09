@@ -47,13 +47,13 @@ namespace Services.Services
             try
             {
                 var kennel = await _kennelRepository.GetById(id);
-                if (kennel != null)
+                if (kennel == null)
                 {
                     throw new Exception("Not found Kennel!");
                 }
                 else
                 {
-                    _kennelRepository.DeleteKennel(kennel);
+                    await _kennelRepository.DeleteKennel(kennel);
                     return "remove kennel successful!";
                 }
             }

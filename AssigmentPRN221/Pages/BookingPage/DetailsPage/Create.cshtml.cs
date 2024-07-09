@@ -81,7 +81,12 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage
             Booking.UserId = userInfo.Id;
             try
             {
-                await _Bookingservices.createBooking(Booking);
+                var flag = await _Bookingservices.createBooking(Booking);
+                if (flag == false)
+                {
+                    ViewData["ErrorMessage"] = "Vet had been booking in this time";
+                    return Page();
+                }
                 return RedirectToPage("/BookingPage/Index");
             }catch (Exception ex)
             {

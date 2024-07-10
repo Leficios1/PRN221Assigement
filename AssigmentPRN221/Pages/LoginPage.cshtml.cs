@@ -38,7 +38,7 @@ namespace AssigmentPRN221.Pages
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
                 HttpContext.Session.SetInt32("Roles", check);
-                return RedirectToPage("/Staff/Index");
+                return RedirectToPage("/KennelPage/KennelWelcom");
             }
             else if (check == 3)
             {

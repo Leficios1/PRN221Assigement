@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Services.Services
 {
@@ -55,6 +56,20 @@ namespace Services.Services
             try
             {
                 var data = await _bookingRepository.getAllBookingAsync();
+                var result = _mapper.Map<List<BookingResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<BookingResponseDTO>> getBookingByUserId(int id)
+        {
+            try
+            {
+                var data = await _bookingRepository.getBookingByUserId(id);
                 var result = _mapper.Map<List<BookingResponseDTO>>(data);
                 return result;
             }

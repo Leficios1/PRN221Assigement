@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 
-namespace AssigmentPRN221.Pages.ServicePage
+namespace AssigmentPRN221.Pages.BookingPageUser.DetailsPageUser
 {
     public class EditModel : PageModel
     {
@@ -21,21 +21,25 @@ namespace AssigmentPRN221.Pages.ServicePage
         }
 
         [BindProperty]
-        public Service Service { get; set; } = default!;
+        public BookingDetails BookingDetails { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.BookingDetails == null)
             {
                 return NotFound();
             }
 
-            var service =  await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            var bookingdetails =  await _context.BookingDetails.FirstOrDefaultAsync(m => m.Id == id);
+            if (bookingdetails == null)
             {
                 return NotFound();
             }
-            Service = service;
+            BookingDetails = bookingdetails;
+           ViewData["PetId"] = new SelectList(_context.Pets, "Id", "PetName");
+           ViewData["BookingId"] = new SelectList(_context.Bookings, "BookingId", "BookingId");
+           ViewData["ServiceId"] = new SelectList(_context.Services, "Id", "ServiceName");
+           ViewData["VetId"] = new SelectList(_context.Vets, "Id", "Name");
             return Page();
         }
 
@@ -48,7 +52,7 @@ namespace AssigmentPRN221.Pages.ServicePage
                 return Page();
             }
 
-            _context.Attach(Service).State = EntityState.Modified;
+            _context.Attach(BookingDetails).State = EntityState.Modified;
 
             try
             {
@@ -56,7 +60,7 @@ namespace AssigmentPRN221.Pages.ServicePage
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServiceExists(Service.Id))
+                if (!BookingDetailsExists(BookingDetails.Id))
                 {
                     return NotFound();
                 }
@@ -69,9 +73,14 @@ namespace AssigmentPRN221.Pages.ServicePage
             return RedirectToPage("./Index");
         }
 
-        private bool ServiceExists(int id)
+        private bool BookingDetailsExists(int id)
         {
-          return (_context.Services?.Any(e => e.Id == id)).GetValueOrDefault();
+          return (_context.BookingDetails?.Any(e => e.Id == id)).GetValueOrDefault();
+        }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
         }
     }
 }

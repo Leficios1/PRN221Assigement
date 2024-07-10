@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 
-namespace AssigmentPRN221.Pages.ServicePage
+namespace AssigmentPRN221.Pages.BookingPageUser.DetailsPageUser
 {
     public class DetailsModel : PageModel
     {
@@ -19,25 +19,30 @@ namespace AssigmentPRN221.Pages.ServicePage
             _context = context;
         }
 
-      public Service Service { get; set; } = default!; 
+      public BookingDetails BookingDetails { get; set; } = default!; 
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.BookingDetails == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
-            if (service == null)
+            var bookingdetails = await _context.BookingDetails.FirstOrDefaultAsync(m => m.Id == id);
+            if (bookingdetails == null)
             {
                 return NotFound();
             }
             else 
             {
-                Service = service;
+                BookingDetails = bookingdetails;
             }
             return Page();
+        }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
         }
     }
 }

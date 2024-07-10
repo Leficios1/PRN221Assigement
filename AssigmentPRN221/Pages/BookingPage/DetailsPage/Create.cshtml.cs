@@ -49,7 +49,7 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage
             var userInfo = await _accountService.GetAccountInfoByEmail(email);
             var pets = await _petServices.getPetByUserId(userInfo.Id);
             var vets = await _vetServices.getAll();
-            var services = await _serviceServices.getAll();
+            var services = await _serviceServices.GetAllService();
 
             Pets = new SelectList((System.Collections.IEnumerable)pets, "Id", "PetName");
             Vets = new SelectList(vets, "Id", "Name");
@@ -87,7 +87,7 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage
                     ViewData["ErrorMessage"] = "Vet had been booking in this time";
                     return Page();
                 }
-                return RedirectToPage("/BookingPage/Index");
+                return RedirectToPage("/BookingUser/Index");
             }catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);

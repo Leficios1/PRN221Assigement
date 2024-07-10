@@ -17,5 +17,6 @@ namespace DataAccessObject.Repository.Interface
         public Task<bool> createBooking(BookingRequestDTO dto);
         public Task<BookingResponseDTO> getById(int id);
         public Task<List<DateTime>> getDateTimeBookingByVetId(int vetId);
+        public Task<List<Booking>> getBookingByUserId(int userId);
     }
 }

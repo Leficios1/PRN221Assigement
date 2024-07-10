@@ -14,5 +14,6 @@ namespace Services.Services.Interface
         Task<bool> createBooking(BookingRequestDTO dto);
         Task<BookingResponseDTO> getBookingDetailsByBookingId(int id);
         Task<List<BookingResponseDTO>> getAllBookingAsync();
+        Task<List<BookingResponseDTO>> getBookingByUserId(int id);
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 
-namespace AssigmentPRN221.Pages.ServicePage
+namespace AssigmentPRN221.Pages.BookingPageUser.DetailsPageUser
 {
     public class DeleteModel : PageModel
     {
@@ -20,44 +20,49 @@ namespace AssigmentPRN221.Pages.ServicePage
         }
 
         [BindProperty]
-      public Service Service { get; set; } = default!;
+      public BookingDetails BookingDetails { get; set; } = default!;
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.BookingDetails == null)
             {
                 return NotFound();
             }
 
-            var service = await _context.Services.FirstOrDefaultAsync(m => m.Id == id);
+            var bookingdetails = await _context.BookingDetails.FirstOrDefaultAsync(m => m.Id == id);
 
-            if (service == null)
+            if (bookingdetails == null)
             {
                 return NotFound();
             }
             else 
             {
-                Service = service;
+                BookingDetails = bookingdetails;
             }
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync(int? id)
         {
-            if (id == null || _context.Services == null)
+            if (id == null || _context.BookingDetails == null)
             {
                 return NotFound();
             }
-            var service = await _context.Services.FindAsync(id);
+            var bookingdetails = await _context.BookingDetails.FindAsync(id);
 
-            if (service != null)
+            if (bookingdetails != null)
             {
-                Service = service;
-                _context.Services.Remove(Service);
+                BookingDetails = bookingdetails;
+                _context.BookingDetails.Remove(BookingDetails);
                 await _context.SaveChangesAsync();
             }
 
             return RedirectToPage("./Index");
+        }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
         }
     }
 }

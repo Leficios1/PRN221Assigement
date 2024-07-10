@@ -1,0 +1,63 @@
+﻿@page
+@model AssigmentPRN221.Pages.KennelPage.KennelWelcom
+
+@{
+    ViewData["Title"] = "KennelWelcom";
+    ViewData["IsIndexPage"] = true;
+    Layout = "_StaffLayout";
+
+}
+
+<h1>Manage Kennel Page</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Kennel[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kennel[0].RoomNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kennel[0].Capacity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kennel[0].status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Kennel) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RoomNumber)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Capacity)
+            </td>
+            <td>
+                    @if (item.status)
+                    {
+                        <span>Active</span>
+                    }
+                    else
+                    {
+                        <span>Inactive</span>
+                    }
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.KennelId">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.KennelId">Details</a> |
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

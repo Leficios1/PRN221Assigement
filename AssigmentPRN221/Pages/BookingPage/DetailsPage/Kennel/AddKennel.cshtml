@@ -1,0 +1,36 @@
+﻿@page
+@model AssigmentPRN221.Pages.BookingPage.DetailsPage.Kennel.AddKennelModel
+@{
+    ViewData["Title"] = "Add Kennel";
+    Layout = "_StaffLayout";
+}
+
+<h1>Add Kennel</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="KennelRecord.PetId" />
+    <div class="form-group">
+        <label for="KennelId">Select Kennel</label>
+        <select id="KennelId" asp-for="KennelRecord.KennelId" class="form-control" asp-items="Model.Kennels"></select>
+    </div>
+    <div class="form-group">
+        <label asp-for="KennelRecord.CheckInDate" class="control-label"></label>
+        <input asp-for="KennelRecord.CheckInDate" class="form-control" />
+        <span asp-validation-for="KennelRecord.CheckInDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="KennelRecord.CheckOutDate" class="control-label"></label>
+        <input asp-for="KennelRecord.CheckOutDate" class="form-control" />
+        <span asp-validation-for="KennelRecord.CheckOutDate" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="KennelRecord.Treatment" class="control-label"></label>
+        <input asp-for="KennelRecord.Treatment" class="form-control" />
+        <span asp-validation-for="KennelRecord.Treatment" class="text-danger"></span>
+    </div>
+    <input type="submit" value="Save" class="btn btn-primary" />
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

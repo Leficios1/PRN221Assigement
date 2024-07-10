@@ -15,5 +15,6 @@ namespace DataAccessObject.Repository.Interface
         public Task<User> getUserNameByPetId(int id);
         public Task<Pet> createPet(Pet entity);
         public Task<bool> deletedPet(int id);
+        public Task<int> getPetIdByPetName(string name);
     }
 }

@@ -82,7 +82,21 @@ namespace DataAccessObject.Repository
             .ThenInclude(d => d.vet)
         .Include(b => b.BookingDetails)
             .ThenInclude(d => d.service)
-        .ToListAsync(); ;
+        .ToListAsync();
+            return data;
+        }
+
+        public async Task<List<Booking>> getBookingByUserId(int userId)
+        {
+            var data = await _context.Bookings
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.Pet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.vet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.service)
+        .Where(x => x.UserId == userId)
+        .ToListAsync();
             return data;
         }
 

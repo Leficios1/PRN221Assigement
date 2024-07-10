@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml;
 
 namespace Services.Services
 {
@@ -32,6 +33,14 @@ namespace Services.Services
             try
             {
                 var kennen = _mapper.Map<Kennel>(dto);
+                var ListKenel = await _kennelRepository.GetAll();
+                foreach (var item in ListKenel)
+                {
+                    if(kennen.RoomNumber == item.RoomNumber)
+                    {
+                        return "Dupplicate RoomNumber!";
+                    }
+                }
                 kennen.status = true;
                 await _kennelRepository.AddKennel(kennen);
                 return "add successfull";
@@ -53,6 +62,8 @@ namespace Services.Services
                 }
                 else
                 {
+
+                    kennel.status = false;
                     await _kennelRepository.DeleteKennel(kennel);
                     return "remove kennel successful!";
                 }
@@ -105,26 +116,56 @@ namespace Services.Services
             }
         }
 
+        public async Task<Kennel> GetKennelById(int id)
+        {
+            try
+            {
+                var kennel = await _kennelRepository.GetById(id);
+                return kennel;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<string> UpdateKennel(KennelRequestDTO dto)
         {
             try
             {
-                var kennel = _kennelRepository.GetById(dto.Id);
+                var kennel = await _kennelRepository.GetById(dto.Id);
                 if(kennel != null)
                 {
-                    var data = await _mapper.Map(dto, kennel);
-                    await _kennelRepository.UpdateKennel(data);
-                    return "Update successful!";
+                    if (kennel.RoomNumber == dto.RoomNumber)
+                    {
+                        var data = _mapper.Map(dto, kennel);
+                        await _kennelRepository.UpdateKennel(data);
+                        return "Update successful!";
+                    }
+                    else
+                    {
+                        var ListKenel = await _kennelRepository.GetAll();
+                        foreach (var item in ListKenel)
+                        {
+                            if (dto.RoomNumber == item.RoomNumber)
+                            {
+                                return "Dupplicate RoomNumber!";
+                            }
+                        }
+                        var data = _mapper.Map(dto, kennel);
+                        await _kennelRepository.UpdateKennel(data);
+                        return "Update successful!";
+                    }
                 }
                 else
                 {
-                    throw new Exception("not found kennel!");
+                    return "not found kennel!";
                 }
 
             }
             catch (Exception ex)
             {
-                throw new Exception("Error database!");
+                throw new Exception(ex.Message);
             }
         }
     }

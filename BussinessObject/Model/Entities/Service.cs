@@ -11,9 +11,12 @@ namespace BussinessObject.Model.Entities
     [Table("Service")]
     public class Service : IBaseEntities
     {
+
         public int Id { get; set; }
         public string ServiceName { get; set; } = null!;
         public decimal ServiceCharge { get; set; }
+        public bool status { get; set; }
+
         public ICollection<BookingDetails> BookingDetails { get; set; }
 
     }

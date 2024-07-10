@@ -119,6 +119,18 @@ namespace Services.Services
             }
         }
 
+        public async Task<int> getPetIdByPetName(string name)
+        {
+            try
+            {
+                var data = await _petRepository.getPetIdByPetName(name);
+                return data;
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<PetResponseDTO> updatePets(PetRequestDTO dto)
         {
             try

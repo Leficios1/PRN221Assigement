@@ -37,7 +37,7 @@ namespace AssigmentPRN221.Extensions
             services.AddScoped<IKennelRepository, KennelRepository>();
             services.AddScoped<IKennelRecordRepository, KennelRecordRepository>();
             services.AddScoped<IBookingRepository, BookingRepository>();    
-            services.AddScoped<IServicesRepository, ServicesRepository>();
+            services.AddScoped<IServicesRepository, ServiceRepository>();
 
             //Register Services
             services.AddScoped<IUserServices, UserServices>();

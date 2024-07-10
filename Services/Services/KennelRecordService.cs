@@ -46,10 +46,10 @@ namespace Services.Services
                     var kennelRecord = mapper.Map<KennelRecord>(dto);
 
                     kennelRecord.status = true;
-                    kennelRecordRepository.AddkennelRecord(kennelRecord);
+                    await kennelRecordRepository.AddkennelRecord(kennelRecord);
 
                     kennel.status = false;
-                    kennelRepository.UpdateKennel(kennel);
+                    await kennelRepository.UpdateKennel(kennel);
 
                     return "Reservation kennel successful!";
                 }
@@ -103,10 +103,10 @@ namespace Services.Services
 
                     kennelRecord.status = true;
                     kennelRecord.CheckInDate = DateTime.Now;
-                    kennelRecordRepository.AddkennelRecord(kennelRecord);
+                    await kennelRecordRepository.AddkennelRecord(kennelRecord);
 
                     kennel.status = false;
-                    kennelRepository.UpdateKennel(kennel);
+                    await kennelRepository.UpdateKennel(kennel);
 
                     return "Add kennel successful!";
                 }

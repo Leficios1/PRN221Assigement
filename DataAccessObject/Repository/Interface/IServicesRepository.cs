@@ -7,8 +7,13 @@ using System.Threading.Tasks;
 
 namespace DataAccessObject.Repository.Interface
 {
-    public interface IServicesRepository : IBaseRepository<Service>
+    public interface IServicesRepository
     {
-        Task<List<Service>> getAll();
+        Task<List<Service>> GetAll();
+        Task<Service> GetById(int id);
+        Task Update(Service entity);
+        Task AddService(Service entity);
+        Task DeleteService(Service entity);
+        Task<List<Service>> GetAllValid();
     }
 }

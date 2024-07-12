@@ -44,8 +44,18 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].PetId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].PetName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecordto.KennelId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecordto.kennelRoom)
+                </th>
+
             <th>
                 @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].VetName)
             </th>
@@ -65,8 +75,29 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.PetId)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.PetName)
                 </td>
+                @if(Model.KennelRecordto != null)
+                {
+                <td>
+                    @Html.DisplayFor(model => model.KennelRecordto.KennelId)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => model.KennelRecordto.kennelRoom)
+                </td>
+                }
+                else
+                {
+                    <td>
+                        null
+                    </td>
+                    <td>
+                        null
+                    </td>
+                }     
                 <td>
                     @Html.DisplayFor(modelItem => item.VetName)
                 </td>
@@ -81,6 +112,9 @@
                 </td>
                 <td>
                     <a asp-page="Kennel/AddKennel" asp-route-petName="@item.PetName">Add Kennel</a>
+                </td>
+                <td>
+                    <a asp-page="Kennel/AddKennel" asp-route-petName="@item.PetName">Check Out</a>
                 </td>
             </tr>
         }

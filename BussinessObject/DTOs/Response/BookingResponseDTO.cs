@@ -20,6 +20,7 @@ namespace BussinessObject.DTOs.Response
     public class BookingDetailsDTO
     {
         public int Id { get; set; }
+        public int PetId { get; set; }
         public string PetName { get; set; } = null!;
         public string VetName { get; set; }
         public string ServiceName { get; set; } = null!;

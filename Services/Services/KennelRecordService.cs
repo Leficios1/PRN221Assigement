@@ -100,6 +100,12 @@ namespace Services.Services
                 }
                 else
                 {
+                    var check  = kennelRecordRepository.getByPetIddto(dto.PetId);
+                    if(check != null)
+                    {
+                        return "this Pet has been kennel!";
+                    }
+
                     var kennelRecord = mapper.Map<KennelRecord>(dto);
 
                     kennelRecord.status = true;
@@ -170,6 +176,26 @@ namespace Services.Services
             {
                 var data = await kennelRecordRepository.getByPetId(petId);
                 var result = mapper.Map<List<KennelRecordResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<KennelRecordResponseDTO> getByPetIdDto(int petId)
+        {
+            try
+            {
+                var data =  kennelRecordRepository.getByPetIddto(petId);
+                if(data == null)
+                {
+                    return null;
+                }
+                var kennel = await kennelRepository.GetById(data.KennelId);
+                var result = mapper.Map<KennelRecordResponseDTO>(data);
+                result.kennelRoom = kennel.RoomNumber;
                 return result;
             }
             catch (Exception ex)

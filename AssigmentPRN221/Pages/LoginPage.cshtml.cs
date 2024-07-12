@@ -50,7 +50,7 @@ namespace AssigmentPRN221.Pages
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
                 HttpContext.Session.SetInt32("Roles", check);
-                return RedirectToPage("/Vet/Index");
+                return RedirectToPage("/VetPage/Index");
             }
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return Page();

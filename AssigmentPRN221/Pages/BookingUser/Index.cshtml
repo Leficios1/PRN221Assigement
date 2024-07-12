@@ -1,5 +1,6 @@
 ﻿@page
-@model AssigmentPRN221.Pages.BookingPage.IndexModel
+@using BussinessObject.Model.ENUM;
+@model AssigmentPRN221.Pages.BookingUser.IndexModel
 
 @{
     ViewData["Title"] = "Index";
@@ -8,7 +9,7 @@
 
 }
 
-<h1>Index</h1>
+<h1>History Booking </h1>
 
 <p>
     <a asp-page="./DetailsPageUser/Create">Create New</a>
@@ -36,7 +37,17 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Status)
+                    @{
+                        var status = (StatusEnum)item.Status;
+                        var statusClass = status switch
+                        {
+                            StatusEnum.inactive => "text-danger",
+                            StatusEnum.active => "text-success",
+                            StatusEnum.inProcess => "text-warning",
+                            _ => ""
+                        };
+                    }
+                    <span class="@statusClass">@status.ToDisplayString()</span>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Note)

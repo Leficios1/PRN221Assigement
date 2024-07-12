@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,9 +9,8 @@ using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 using Services.Services.Interface;
 using BussinessObject.DTOs.Response;
-using Services.Services;
 
-namespace AssigmentPRN221.Pages.BookingUser
+namespace AssigmentPRN221.Pages.VetPage
 {
     public class IndexModel : PageModel
     {
@@ -24,7 +23,7 @@ namespace AssigmentPRN221.Pages.BookingUser
             _accountService = accountService;
         }
 
-        public List<BookingResponseDTO> Booking { get;set; } = default!;
+        public List<BookingResponseDTO> Bookings { get;set; } = default!;
 
         public async Task<IActionResult> OnGetAsync()
         {
@@ -33,15 +32,9 @@ namespace AssigmentPRN221.Pages.BookingUser
             {
                 return RedirectToPage("/LoginPage");
             }
-            var userInfo = await _accountService.GetAccountInfoByEmail(email);
-            Booking = await _bookingServices.getBookingByUserId(userInfo.Id);
+            var vetId = await _accountService.GetAccountInfoByEmail(email);
+            Bookings = await _bookingServices.getAllBookingByVetId(vetId.Id);
             return Page();
         }
-        public IActionResult OnPostLogout()
-        {
-            HttpContext.Session.Clear();
-            return RedirectToPage("/Index");
-        }
     }
-
 }

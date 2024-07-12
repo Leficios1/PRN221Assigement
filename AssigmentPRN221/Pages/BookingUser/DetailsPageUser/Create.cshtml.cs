@@ -87,7 +87,7 @@ namespace AssigmentPRN221.Pages.BookingUser.DetailsPageUser
                     ViewData["ErrorMessage"] = "Vet had been booking in this time";
                     return Page();
                 }
-                return RedirectToPage("/BookingPageUser/Index");
+                return RedirectToPage("/BookingUser/Index");
             }catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);

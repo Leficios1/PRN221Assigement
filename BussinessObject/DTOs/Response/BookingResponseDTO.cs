@@ -25,5 +25,6 @@ namespace BussinessObject.DTOs.Response
         public string ServiceName { get; set; } = null!;
         public decimal Price { get; set; }
         public int Status { get; set; }
+        public int? Kennel { get; set; }
     }
 }

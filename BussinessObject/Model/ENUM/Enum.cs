@@ -22,4 +22,17 @@ namespace BussinessObject.Model.ENUM
         emptyRoom = 0,
         validRom = 1,
     }
+    public static class StatusEnumExtensions
+    {
+        public static string ToDisplayString(this StatusEnum status)
+        {
+            return status switch
+            {
+                StatusEnum.inactive => "Inactive",
+                StatusEnum.active => "Active",
+                StatusEnum.inProcess => "In Process",
+                _ => "Unknown"
+            };
+        }
+    }
 }

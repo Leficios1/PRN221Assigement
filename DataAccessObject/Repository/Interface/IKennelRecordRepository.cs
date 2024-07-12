@@ -14,5 +14,7 @@ namespace DataAccessObject.Repository.Interface
         Task AddkennelRecord(KennelRecord entity);
         Task<KennelRecord> GetById(int id);
         Task UpdateKennelRecord(KennelRecord entity);
+        Task<List<KennelRecord>> getByPetId(int petid);
+        Task<List<KennelRecord>> getByKennelId(int kennelId);
     }
 }

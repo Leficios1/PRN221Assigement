@@ -15,5 +15,7 @@ namespace Services.Services.Interface
         Task<BookingResponseDTO> getBookingDetailsByBookingId(int id);
         Task<List<BookingResponseDTO>> getAllBookingAsync();
         Task<List<BookingResponseDTO>> getBookingByUserId(int id);
+        Task<List<BookingResponseDTO>> getAllBookingByVetId(int vetId);
+        Task<List<BookingResponseDTO>> getNewBookingByVetId(int vetId);
     }
 }

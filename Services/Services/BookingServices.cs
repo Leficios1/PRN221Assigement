@@ -65,6 +65,19 @@ namespace Services.Services
             }
         }
 
+        public async Task<List<BookingResponseDTO>> getAllBookingByVetId(int vetId)
+        {
+            try
+            {
+                var data = await _bookingRepository.getAllBookingByVetId(vetId);
+                var result = _mapper.Map<List<BookingResponseDTO>>(data);
+                return result;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<BookingResponseDTO>> getBookingByUserId(int id)
         {
             try
@@ -84,6 +97,20 @@ namespace Services.Services
             try
             {
                 var result = await _bookingRepository.getById(id);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<BookingResponseDTO>> getNewBookingByVetId(int vetId)
+        {
+            try
+            {
+                var data = await _bookingRepository.getNewBookingByVetId(vetId);
+                var result = _mapper.Map<List<BookingResponseDTO>>(data);
                 return result;
             }
             catch (Exception ex)

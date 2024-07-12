@@ -86,6 +86,31 @@ namespace DataAccessObject.Repository
             return data;
         }
 
+        private async Task<int> getVetIdByVetId(int vetId)
+        {
+            var name = await _context.Users.Where(u => u.Id == vetId).Select(u => u.Name).SingleOrDefaultAsync();
+            if (name == null)
+            {
+                return 0;
+            }
+            var id = await _context.Vets.Where(v => v.Name.Equals(name)).Select(v => v.Id).SingleOrDefaultAsync();
+            return id;
+        }
+
+        public async Task<List<Booking>> getAllBookingByVetId(int vetId)
+        {
+            var id = await getVetIdByVetId(vetId);
+            return await _context.Set<Booking>()
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.vet)
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.Pet)
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.service)
+                .Where(b => b.BookingDetails.Any(bd => bd.VetId == id))
+                .ToListAsync();
+        }
+
         public async Task<List<Booking>> getBookingByUserId(int userId)
         {
             var data = await _context.Bookings
@@ -129,6 +154,21 @@ namespace DataAccessObject.Repository
                         .Where(b => b.VetId == vetId)
                         .Select(b => b.booking.Date)
                         .ToListAsync();
+        }
+
+        public async Task<List<Booking>> getNewBookingByVetId(int vetId)
+        {
+            var id = await getVetIdByVetId(vetId);
+            var data = await _context.Set<Booking>()
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.vet)
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.Pet)
+                .Include(b => b.BookingDetails)
+                    .ThenInclude(bd => bd.service)
+                .Where(b => b.Date >= DateTime.Now && b.BookingDetails.Any(bd => bd.VetId == id) )
+                .ToListAsync();
+            return data;
         }
 
         public Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto)

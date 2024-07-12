@@ -1,4 +1,4 @@
-﻿using BussinessObject.DTOs.Response;
+﻿ using BussinessObject.DTOs.Response;
 using BussinessObject.Model.Entities;
 using Microsoft.EntityFrameworkCore.Metadata;
 using System;
@@ -17,5 +17,6 @@ namespace DataAccessObject.Repository.Interface
         Task UpdateKennel(Kennel kennel);
         Task<Kennel> GetById(int id);
         Task DeleteKennel (Kennel kennel);
+
     }
 }

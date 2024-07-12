@@ -18,5 +18,8 @@ namespace DataAccessObject.Repository.Interface
         public Task<BookingResponseDTO> getById(int id);
         public Task<List<DateTime>> getDateTimeBookingByVetId(int vetId);
         public Task<List<Booking>> getBookingByUserId(int userId);
+        public Task<List<Booking>> getAllBookingByVetId(int vetId);
+        public Task<List<Booking>> getNewBookingByVetId(int vetId);
+        
     }
 }

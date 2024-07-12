@@ -1,57 +1,100 @@
 ﻿@page
-@model AssigmentPRN221.Pages.BookingPage.DetailsPage.DetailsModel
+@model AssigmentPRN221.Pages.BookingUser.DetailsPageUser.DetailsModel
 
 @{
     ViewData["Title"] = "Details";
-    Layout = "_userLayout";
-
 }
 
-<h1>Details</h1>
+<style>
+    .details-container {
+        margin-top: 50px;
+    }
 
-<div>
-    <h4>BookingDetails</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.Price)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.Price)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.Status)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.Status)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.Pet)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.Pet.PetName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.vet)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.vet.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.booking)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.booking.BookingId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.BookingDetails.service)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.BookingDetails.service.ServiceName)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.BookingDetails?.Id">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    .details-card {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .details-header {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-bottom: 1px solid #ddd;
+        border-radius: 5px 5px 0 0;
+    }
+
+    .details-body {
+        padding: 20px;
+    }
+
+    .details-footer {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-top: 1px solid #ddd;
+        border-radius: 0 0 5px 5px;
+        text-align: right;
+    }
+
+        .details-footer a {
+            margin-left: 10px;
+        }
+
+    dt {
+        font-weight: bold;
+    }
+</style>
+
+<div class="container details-container">
+    <h1 class="mb-4">@ViewData["Title"]</h1>
+
+    <div class="details-card">
+        <div class="details-header">
+            <h4 class="card-title">Booking</h4>
+        </div>
+        <div class="details-body">
+            <dl class="row mb-0">
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.Price)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.Price)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.Status)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.Status)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.Pet)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.Pet.PetName)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.vet)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.vet.Name)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.booking)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.booking.BookingId)
+                </dd>
+                <dt class="col-sm-3">
+                    @Html.DisplayNameFor(model => model.BookingDetails.service)
+                </dt>
+                <dd class="col-sm-9">
+                    @Html.DisplayFor(model => model.BookingDetails.service.ServiceName)
+                </dd>
+            </dl>
+        </div>
+        <div class="details-footer">
+            <a class="btn btn-primary" asp-page="./Edit" asp-route-id="@Model.BookingDetails?.Id">Edit</a>
+            <a class="btn btn-secondary" asp-page="./Index">Back to List</a>
+        </div>
+    </div>
 </div>

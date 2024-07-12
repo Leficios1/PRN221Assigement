@@ -40,5 +40,19 @@ namespace DataAccessObject.Repository
             _context.KennelRecords.Update(entity);
             _context.SaveChanges();
         }
+
+        public Task<List<KennelRecord>> getByPetId(int petid)
+        {
+            var data = _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)
+                        .Where(p => p.PetId == petid).OrderByDescending(kr => kr.Id).ToListAsync();
+            return data;
+        }
+
+        public Task<List<KennelRecord>> getByKennelId(int kennelId)
+        {
+            var data = _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)
+            .Where(p => p.KennelId == kennelId).ToListAsync();
+            return data;
+        }
     }
 }

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 
-namespace AssigmentPRN221.Pages.BookingPageUser
+namespace AssigmentPRN221.Pages.BookingUser
 {
     public class DeleteModel : PageModel
     {

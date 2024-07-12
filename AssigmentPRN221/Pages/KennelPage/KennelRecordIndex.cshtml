@@ -1,0 +1,74 @@
+﻿@page
+@model AssigmentPRN221.Pages.KennelPage.KennelRecordIndexModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>KennelRecordIndex</title>
+</head>
+<body>
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].Pet)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].Kennel)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].CheckInDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].CheckOutDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].Treatment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.KennelRecord[0].status)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.KennelRecord) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pet.PetName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kennel.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckInDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CheckOutDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treatment)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.status)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>

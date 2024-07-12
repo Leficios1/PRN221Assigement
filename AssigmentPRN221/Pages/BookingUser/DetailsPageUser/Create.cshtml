@@ -1,5 +1,5 @@
 ﻿@page
-@model AssigmentPRN221.Pages.BookingPage.DetailsPage.CreateModel
+@model AssigmentPRN221.Pages.BookingUser.DetailsPageUser.CreateModel
 
 @{
     ViewData["Title"] = "Create Booking Details";
@@ -71,7 +71,7 @@
                     text: errorMessage
                 }).then((result) =>{
                     if (result.isConfirmed) {
-                        window.location.href = '/BookingPage/Index';
+                        window.location.href = '/BookingUser/Index';
                     }
                 });
             }

@@ -37,7 +37,7 @@ namespace Services.Services
                 {
                     return "Not found kennel!";
                 }
-                else if(pet == null)
+                else if (pet == null)
                 {
                     return "Not found Pet!";
                 }
@@ -53,7 +53,8 @@ namespace Services.Services
 
                     return "Reservation kennel successful!";
                 }
-            }catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 throw new Exception("Error database!");
             }
@@ -80,7 +81,7 @@ namespace Services.Services
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
-            }         
+            }
         }
 
         public async Task<string> AddKennelRecord(KennelRecordRequestDTO dto)
@@ -124,10 +125,11 @@ namespace Services.Services
                 var kennelRecord = await kennelRecordRepository.GetById(dto.Id);
                 var kennel = await kennelRepository.GetById(dto.KennelId);
                 var pet = await petRepository.GetById(dto.PetId);
-                if(kennelRecord == null)
+                if (kennelRecord == null)
                 {
                     return "Not found KennelRecord!";
-                }else if (kennel == null)
+                }
+                else if (kennel == null)
                 {
                     return "Not found kennel!";
                 }
@@ -138,7 +140,7 @@ namespace Services.Services
                 else
                 {
                     var oleKennel = await kennelRepository.GetById(kennelRecord.KennelId);
-                    if(kennel != oleKennel)
+                    if (kennel != oleKennel)
                     {
                         if (kennel.status == false)
                         {
@@ -151,7 +153,7 @@ namespace Services.Services
                         kennel.status = false;
                         await kennelRepository.UpdateKennel(kennel);
                     }
-                    var data =  mapper.Map(dto, kennelRecord);
+                    var data = mapper.Map(dto, kennelRecord);
                     await kennelRecordRepository.UpdateKennelRecord(data);
                     return "Update kennel successful!";
                 }
@@ -159,6 +161,34 @@ namespace Services.Services
             catch (Exception ex)
             {
                 throw new Exception("Error database!");
+            }
+        }
+
+        public async Task<List<KennelRecordResponseDTO>> getByPetId(int petId)
+        {
+            try
+            {
+                var data = await kennelRecordRepository.getByPetId(petId);
+                var result = mapper.Map<List<KennelRecordResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<KennelRecordResponseDTO>> getByKennlId(int kennlId)
+        {
+            try
+            {
+                var data = await kennelRecordRepository.getByKennelId(kennlId);
+                var result = mapper.Map<List<KennelRecordResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
     }

@@ -1,4 +1,4 @@
-﻿    using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,30 +10,36 @@ using DataAccessObject.Database;
 using Services.Services.Interface;
 using BussinessObject.DTOs.Response;
 
-namespace AssigmentPRN221.Pages.VetPage
+namespace AssigmentPRN221.Pages.ServicePage
 {
-    public class IndexModel : PageModel
+    public class DetailsModel : PageModel
     {
-        private readonly IBookingServices _bookingServices;
-        private readonly IAccountService _accountService;
+        private readonly IServiceServices _serviceServices;
 
-        public IndexModel(IBookingServices bookingServices, IAccountService accountService)
+        public DetailsModel(IServiceServices serviceServices)
         {
-            _bookingServices = bookingServices;
-            _accountService = accountService;
+            _serviceServices = serviceServices;
         }
 
-        public List<BookingResponseDTO> Bookings { get;set; } = default!;
+      public ServiceResponseDTO Service { get; set; } = default!; 
 
-        public async Task<IActionResult> OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             var email = HttpContext.Session.GetString("UserEmail");
             if (email == null)
             {
                 return RedirectToPage("/LoginPage");
             }
-            var vetId = await _accountService.GetAccountInfoByEmail(email);
-            Bookings = await _bookingServices.getAllBookingByVetId(vetId.Id);
+
+            var service = await _serviceServices.GetServiceById(id);
+            if (service == null)
+            {
+                return NotFound();
+            }
+            else 
+            {
+                Service = service;
+            }
             return Page();
         }
         public IActionResult OnPostLogout()

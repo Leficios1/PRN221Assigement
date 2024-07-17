@@ -191,5 +191,54 @@ namespace Services.Services
                 throw new Exception(ex.Message);
             }
         }
+
+        public async Task<KennelRecordResponseDTO?> getByKennelStatus(int kennelId)
+        {
+            try
+            {
+                var data = await kennelRecordRepository.getKennelActive(kennelId);
+                if(data == null)
+                {
+                    return null;
+                }
+                var result = mapper.Map<KennelRecordResponseDTO>(data);
+                if (data.PetId != 0)
+                {
+                    var dataPet = await petRepository.GetById(data.PetId);
+                    result.PetName = dataPet.PetName;
+                    return result;
+                }
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<string?> GetKennelStatusByPetId(int petId)
+        {
+            try
+            {
+                var data = await kennelRecordRepository.getKennelNameActiveByPetId(petId);
+                return data;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> checkoutKennel(int kennelId)
+        {
+            try
+            {
+                var data = await kennelRecordRepository.checkoutKennel(kennelId);
+                return data;
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);    
+            }
+        }
     }
 }

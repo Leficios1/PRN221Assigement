@@ -8,6 +8,7 @@ using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
 using Services.Services.Interface;
 using BussinessObject.DTOs.Response;
+using Services.Services;
 
 namespace AssigmentPRN221.Pages.VetPage.Details
 {
@@ -36,6 +37,17 @@ namespace AssigmentPRN221.Pages.VetPage.Details
         {
             HttpContext.Session.Clear();
             return RedirectToPage("/Index");
+        }
+        public async Task<IActionResult> OnPostCheckoutAsync(int id)
+        {
+            var result = await _bookingServices.updateStatus(id);
+            if (!result)
+            {
+                ModelState.AddModelError(string.Empty, "Change status failed.");
+                return Page();
+            }
+
+            return RedirectToPage("/VetPage/Index");
         }
     }
 }

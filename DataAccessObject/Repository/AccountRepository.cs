@@ -19,6 +19,13 @@ namespace DataAccessObject.Repository
             _context = context;
         }
 
+        public async Task<int> countUser()
+        {
+            var data = await _context.Users
+            .CountAsync(u => u.RoleId == 3);
+            return data;
+        }
+
         public async Task<User> CreateAccountRepo(User user)
         {
             _context.Add(user); 

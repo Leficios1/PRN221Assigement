@@ -34,5 +34,15 @@ namespace BussinessObject.Model.ENUM
                 _ => "Unknown"
             };
         }
+        public static string ToDisplayBooking(this StatusEnum status)
+        {
+            return status switch
+            {
+                StatusEnum.inactive => "Inactive",
+                StatusEnum.active => "Done",
+                StatusEnum.inProcess => "In Process",
+                _ => "Unknown"
+            };
+        }
     }
 }

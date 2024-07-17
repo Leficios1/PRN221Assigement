@@ -1,0 +1,108 @@
+﻿@page
+@model AssigmentPRN221.Pages.SignUpModel
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Welcome to PetCare";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+
+        .signup-container {
+            margin-top: 50px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .signup-header {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container signup-container">
+        <h2 class="signup-header text-center">Sign Up</h2>
+        <hr />
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="post">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Name" class="control-label"></label>
+                        <input asp-for="User.Name" class="form-control" />
+                        <span asp-validation-for="User.Name" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Email" class="control-label"></label>
+                        <input asp-for="User.Email" class="form-control" />
+                        <span asp-validation-for="User.Email" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Password" class="control-label"></label>
+                        <input asp-for="User.Password" type="password" class="form-control" />
+                        <span asp-validation-for="User.Password" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Phone" class="control-label"></label>
+                        <input asp-for="User.Phone" class="form-control" />
+                        <span asp-validation-for="User.Phone" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Address" class="control-label"></label>
+                        <input asp-for="User.Address" class="form-control" />
+                        <span asp-validation-for="User.Address" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.DateOfBirth" class="control-label"></label>
+                        <input asp-for="User.DateOfBirth" type="date" class="form-control" />
+                        <span asp-validation-for="User.DateOfBirth" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="User.Gender" class="control-label"></label>
+                        <select asp-for="User.Gender" class="form-control">
+                            <option value="">Select Gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span asp-validation-for="User.Gender" class="text-danger"></span>
+                    </div>
+
+                    <div class="form-group text-center">
+                        <input type="submit" value="Create" class="btn btn-primary btn-block" />
+                    </div>
+                </form>
+                <div class="text-center">
+                    <a asp-page="/LoginPage">Have an account? Login here</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    @section Scripts {
+        @{
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+</body>
+</html>

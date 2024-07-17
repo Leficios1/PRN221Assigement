@@ -17,5 +17,8 @@ namespace Services.Services.Interface
         Task<List<BookingResponseDTO>> getBookingByUserId(int id);
         Task<List<BookingResponseDTO>> getAllBookingByVetId(int vetId);
         Task<List<BookingResponseDTO>> getNewBookingByVetId(int vetId);
+        Task<bool> updateStatus(int bookingId);
+        Task<int> countBooking();
+        Task<List<int>> BookingPerDays();
     }
 }

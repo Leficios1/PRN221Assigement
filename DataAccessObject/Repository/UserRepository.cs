@@ -27,6 +27,7 @@ namespace DataAccessObject.Repository
             try
             {
                 var result = await _context.Users.AddAsync(dto);
+                await _context.SaveChangesAsync();
                 return true;
             }catch (Exception ex)
             {
@@ -56,6 +57,7 @@ namespace DataAccessObject.Repository
             if(data != null)
             {
                 _context.Users.Update(dto);
+                await _context.SaveChangesAsync();
                 return true;
             }
             else

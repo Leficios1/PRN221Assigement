@@ -22,6 +22,17 @@ namespace Services.Services
             _mapper = mapper;
         }
 
+        public Task<int> countUser()
+        {
+            try
+            {
+                return _accountRepo.countUser();
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<UserRequestDTO> CreateAccount(UserRequestDTO account)
         {
             try

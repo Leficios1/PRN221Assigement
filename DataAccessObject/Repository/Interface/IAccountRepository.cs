@@ -14,7 +14,7 @@ namespace DataAccessObject.Repository.Interface
         public Task<User>GetAccountDetailByEmail(string email);
         public Task<User> GetAccountDetailById(int id);
 
-
+        public Task<int> countUser();
         public Task<User> CreateAccountRepo(User user);
     }
 }

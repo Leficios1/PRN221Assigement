@@ -37,7 +37,7 @@ namespace DataAccessObject.Repository
                     var data = new Booking();
                     data.Date = dto.Date;
                     data.UserId = dto.UserId;
-                    data.Status = (int)StatusEnum.active;
+                    data.Status = (int)StatusEnum.inProcess;
                     data.Note = dto.Note;
                     _context.Bookings.Add(data);
                     await _context.SaveChangesAsync();
@@ -144,7 +144,6 @@ namespace DataAccessObject.Repository
 
             var bookingDTO = _mapper.Map<BookingResponseDTO>(booking);
             bookingDTO.bookingDetails = _mapper.Map<List<BookingDetailsDTO>>(booking.BookingDetails);
-
             return bookingDTO;
         }
 
@@ -166,14 +165,53 @@ namespace DataAccessObject.Repository
                     .ThenInclude(bd => bd.Pet)
                 .Include(b => b.BookingDetails)
                     .ThenInclude(bd => bd.service)
-                .Where(b => b.Date >= DateTime.Now && b.BookingDetails.Any(bd => bd.VetId == id) )
+                .Where(b => b.Date >= DateTime.Now && b.BookingDetails.Any(bd => bd.VetId == id))
                 .ToListAsync();
             return data;
         }
 
-        public Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto)
+        public async Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<bool> updateStatus(int bookingId)
+        {
+            var data = await _context.Bookings.Where(x => x.BookingId == bookingId).SingleOrDefaultAsync();
+            if (data == null)
+            {
+                return false;
+            }
+            data.Status = (int)StatusEnum.active;
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<int> countBooking()
+        {
+            var data = await _context.Bookings
+            .CountAsync(b => b.Date.Date == DateTime.Today);
+            return data;
+        }
+
+        public async Task<List<int>> bookingPerDay()
+        {
+            var today = DateTime.Today;
+            var sevenDaysAgo = today.AddDays(-6);
+
+            var dateRange = Enumerable.Range(0, 7)
+                .Select(offset => sevenDaysAgo.AddDays(offset))
+                .ToList();
+
+            var bookingCounts = await _context.Bookings
+                .Where(b => b.Date.Date >= sevenDaysAgo && b.Date.Date <= today)
+                .GroupBy(b => b.Date.Date)
+                .Select(g => new { Date = g.Key, Count = g.Count() })
+                .ToDictionaryAsync(x => x.Date, x => x.Count);
+
+            var result = dateRange.Select(date => bookingCounts.ContainsKey(date) ? bookingCounts[date] : 0).ToList();
+
+            return result;
         }
     }
 }

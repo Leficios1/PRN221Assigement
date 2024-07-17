@@ -29,5 +29,10 @@ namespace AssigmentPRN221.Pages.VetPage
             NewBookings = await _bookingServices.getNewBookingByVetId(vetId.Id);
             return Page();
         }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
+        }
     }
 }

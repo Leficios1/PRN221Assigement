@@ -11,7 +11,7 @@ namespace Services.Services.Interface
     public interface IUserServices
     {
         Task<List<UserResponseDTO>> getAllUserAsync();
-        Task<UserResponseDTO> createUser(UserRequestDTO dto);
+        Task<bool> createUser(UserRequestDTO dto);
         Task<UserResponseDTO> updateUser(UserRequestDTO dto);
         Task<UserResponseDTO> deleteUser(int id);
     }

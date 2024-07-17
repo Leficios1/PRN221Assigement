@@ -29,14 +29,19 @@ namespace AssigmentPRN221.Pages.PetsPage
 
         public List<PetResponseDTO> Pet { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync()
         {
             var email = HttpContext.Session.GetString("UserEmail");
+            if (email == null)
+            {
+                return RedirectToPage("/LoginPage");
+            }
             var userInfo = await _accountService.GetAccountInfoByEmail(email);
             if (_context.Pets != null)
             {
                 Pet = await _petServices.getPetByUserId(userInfo.Id);
             }
+            return Page();
         }
 
         public IActionResult OnPostLogout()

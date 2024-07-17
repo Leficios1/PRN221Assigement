@@ -7,28 +7,47 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
+using Services.Services;
+using BussinessObject.DTOs.Response;
+using Services.Services.Interface;
 
 namespace AssigmentPRN221.Pages.KennelPage
 {
     public class KennelRecordIndexModel : PageModel
     {
-        private readonly DataAccessObject.Database.PetManagementContext _context;
+        private readonly IKennelRecordService _kennelRecordService;
 
-        public KennelRecordIndexModel(DataAccessObject.Database.PetManagementContext context)
+        public KennelRecordIndexModel(IKennelRecordService kennelRecordService)
         {
-            _context = context;
+            _kennelRecordService = kennelRecordService;
         }
 
-        public IList<KennelRecord> KennelRecord { get;set; } = default!;
+        public List<KennelRecordResponseDTO> KennelRecord { get;set; } = default!;
 
-        public async Task OnGetAsync()
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (_context.KennelRecords != null)
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (email == null)
             {
-                KennelRecord = await _context.KennelRecords
-                .Include(k => k.Kennel)
-                .Include(k => k.Pet).ToListAsync();
+                return RedirectToPage("/LoginPage");
             }
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var data = await _kennelRecordService.getByKennlId(id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+            KennelRecord = data;
+            return Page();
+
+        }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
         }
     }
 }

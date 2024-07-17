@@ -1,0 +1,58 @@
+﻿@page
+@model AssigmentPRN221.Pages.ServicePage.IndexModel
+
+@{
+    ViewData["IsIndexPage"] = true;
+
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Service Management</title>
+</head>
+<body>
+    <h1>Services Management</h1>
+    <p>
+        <a asp-page="Create">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Service[0].ServiceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Service[0].ServiceCharge)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Service[0].status)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Service)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceCharge)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.status)
+                    </td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                        <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>

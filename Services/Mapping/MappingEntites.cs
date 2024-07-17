@@ -33,7 +33,9 @@ namespace Services.Mapping
             //KennelRecord
             CreateMap<KennelRecordRequestDTO, KennelRecordResponseDTO>().ReverseMap();
             CreateMap<KennelRecordRequestDTO, KennelRecord>().ReverseMap();
-            CreateMap<KennelRecordResponseDTO, KennelRecord>().ReverseMap();
+            CreateMap<KennelRecord, KennelRecordResponseDTO>()
+                .ForMember(dest => dest.PetName, opt => opt.MapFrom(src => src.Pet.PetName))
+                .ForMember(dest => dest.KennelName, opt => opt.MapFrom(src => src.Kennel.Name));
 
             //Booking
             CreateMap<BookingRequestDTO, Booking>().ReverseMap();

@@ -2,7 +2,8 @@
 @model AssigmentPRN221.Pages.KennelPage.KennelRecordIndexModel
 
 @{
-    Layout = null;
+    ViewData["IsIndexPage"] = true;
+    Layout = "_StaffLayout";
 }
 
 <!DOCTYPE html>
@@ -10,20 +11,16 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>KennelRecordIndex</title>
 </head>
 <body>
-<p>
-    <a asp-page="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.KennelRecord[0].Pet)
+                @Html.DisplayNameFor(model => model.KennelRecord[0].PetName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.KennelRecord[0].Kennel)
+                @Html.DisplayNameFor(model => model.KennelRecord[0].KennelName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.KennelRecord[0].CheckInDate)
@@ -34,20 +31,16 @@
             <th>
                 @Html.DisplayNameFor(model => model.KennelRecord[0].Treatment)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.KennelRecord[0].status)
-            </th>
-            <th></th>
         </tr>
     </thead>
     <tbody>
 @foreach (var item in Model.KennelRecord) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Pet.PetName)
+                @Html.DisplayFor(modelItem => item.PetName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Kennel.Name)
+                @Html.DisplayFor(modelItem => item.KennelName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.CheckInDate)
@@ -57,14 +50,6 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Treatment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.status)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
             </td>
         </tr>
 }

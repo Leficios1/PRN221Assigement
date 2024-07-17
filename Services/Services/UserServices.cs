@@ -23,11 +23,12 @@ namespace Services.Services
             _mapper = mapper;
         }
 
-        public async Task<UserResponseDTO> createUser(UserRequestDTO dto)
+        public async Task<bool> createUser(UserRequestDTO dto)
         {
             try
             {
                 var mapper = _mapper.Map<User>(dto);
+                mapper.RoleId = 3;
                 var data = await _userRepository.createUser(mapper);
                 if (!data)
                 {
@@ -35,8 +36,8 @@ namespace Services.Services
                 }
                 else
                 {
-                    var result = _mapper.Map<UserResponseDTO>(data);
-                    return result;
+                    //var result = _mapper.Map<UserResponseDTO>(data);
+                    return true;
                 }
             }
             catch (Exception ex)

@@ -7,33 +7,35 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
+using Services.Services;
+using BussinessObject.DTOs.Response;
+using Services.Services.Interface;
 
 namespace AssigmentPRN221.Pages.KennelPage
 {
     public class DetailsModel : PageModel
     {
-        private readonly DataAccessObject.Database.PetManagementContext _context;
+        private readonly IKennelService _kennelService;
+        private readonly IKennelRecordService _kennelRecordService;
 
-        public DetailsModel(DataAccessObject.Database.PetManagementContext context)
+        public DetailsModel(IKennelService kennelService, IKennelRecordService kennelRecordService)
         {
-            _context = context;
+            _kennelService = kennelService;
+            _kennelRecordService = kennelRecordService;
         }
 
-      public Kennel Kennel { get; set; } = default!; 
+        public Kennel Kennel { get; set; } = default!; 
+      public KennelRecordResponseDTO KennelRecord { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
             var email = HttpContext.Session.GetString("UserEmail");
             if (email == null)
             {
                 return RedirectToPage("/LoginPage");
             }
-            if (id == null || _context.Kennels == null)
-            {
-                return NotFound();
-            }
 
-            var kennel = await _context.Kennels.FirstOrDefaultAsync(m => m.KennelId == id);
+            var kennel = await _kennelService.GetKennelById(id);
             if (kennel == null)
             {
                 return NotFound();
@@ -42,12 +44,30 @@ namespace AssigmentPRN221.Pages.KennelPage
             {
                 Kennel = kennel;
             }
+            var kennelRecordData = await _kennelRecordService.getByKennelStatus(kennel.KennelId);
+            if (kennelRecordData == null)
+            {
+                return Page();
+            }
+            KennelRecord = kennelRecordData;
             return Page();
         }
         public IActionResult OnPostLogout()
         {
             HttpContext.Session.Clear();
             return RedirectToPage("/Index");
+        }
+
+        public async Task<IActionResult> OnPostCheckoutAsync(int id)
+        {
+            var result = await _kennelRecordService.checkoutKennel(id);
+            if (!result)
+            {
+                ModelState.AddModelError(string.Empty, "Checkout failed.");
+                return Page();
+            }
+
+            return RedirectToPage("./KennelWelcom");
         }
     }
 }

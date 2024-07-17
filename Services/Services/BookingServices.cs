@@ -26,6 +26,29 @@ namespace Services.Services
             _userRepository = userRepository;
         }
 
+        public async Task<List<int>> BookingPerDays()
+        {
+            try
+            {
+                return await _bookingRepository.bookingPerDay();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<int> countBooking()
+        {
+            try
+            {
+                return await _bookingRepository.countBooking();
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<bool> createBooking(BookingRequestDTO dto)
         {
             try
@@ -114,6 +137,18 @@ namespace Services.Services
                 return result;
             }
             catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> updateStatus(int bookingId)
+        {
+            try
+            {
+                var result = await _bookingRepository.updateStatus(bookingId);
+                return result;
+            }catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

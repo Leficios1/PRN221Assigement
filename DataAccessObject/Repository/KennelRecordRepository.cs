@@ -54,5 +54,38 @@ namespace DataAccessObject.Repository
             .Where(p => p.KennelId == kennelId).ToListAsync();
             return data;
         }
+
+        public async Task<KennelRecord> getKennelActive(int kennelId)
+        {
+            var data = await _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)
+                    .Where(p => p.KennelId == kennelId && p.status == true).SingleOrDefaultAsync();
+            return data;
+        }
+
+        public async Task<string?> getKennelNameActiveByPetId(int petid)
+        {
+            var data = await _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)
+                    .Where(p => p.PetId == petid && p.status == true).SingleOrDefaultAsync();
+            if (data == null)
+            {
+                return null;
+            }
+            return data.Kennel.Name;
+        }
+
+        public async Task<bool> checkoutKennel(int KennelId)
+        {
+            var data = await _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)
+                    .Where(p => p.KennelId == KennelId && p.status == true).SingleOrDefaultAsync();
+            if (data == null)
+            {
+                return false;
+            }
+            data.CheckOutDate = DateTime.UtcNow;
+            data.status = false;
+            data.Kennel.status = true;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

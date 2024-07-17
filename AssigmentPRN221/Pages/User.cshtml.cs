@@ -16,10 +16,20 @@ namespace AssigmentPRN221.Pages
 
         public List<UserResponseDTO> Users { get; set; }
 
-        public async Task OnGet()
+        public async Task<IActionResult> OnGetAsync()
         {
-            
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (email == null)
+            {
+                return RedirectToPage("/LoginPage");
+            }
             Users = await _userServices.getAllUserAsync();
+            return Page();
+        }
+        public IActionResult OnPostLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage("/Index");
         }
     }
 }

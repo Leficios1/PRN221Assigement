@@ -20,6 +20,9 @@ namespace DataAccessObject.Repository.Interface
         public Task<List<Booking>> getBookingByUserId(int userId);
         public Task<List<Booking>> getAllBookingByVetId(int vetId);
         public Task<List<Booking>> getNewBookingByVetId(int vetId);
+        public Task<bool> updateStatus(int bookingId);
+        public Task<int> countBooking();
+        public Task<List<int>> bookingPerDay();
         
     }
 }

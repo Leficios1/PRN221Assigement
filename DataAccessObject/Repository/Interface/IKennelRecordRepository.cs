@@ -19,5 +19,6 @@ namespace DataAccessObject.Repository.Interface
         Task<KennelRecord> getKennelActive(int kennelId);
         Task<string?> getKennelNameActiveByPetId(int petid);
         Task<bool> checkoutKennel(int KennelId);
+        KennelRecord getByPetIddto(int petId);
     }
 }

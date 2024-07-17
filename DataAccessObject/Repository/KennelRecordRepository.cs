@@ -48,6 +48,12 @@ namespace DataAccessObject.Repository
             return data;
         }
 
+        public KennelRecord getByPetIddto(int petid)
+        {
+            var data =  _context.KennelRecords.FirstOrDefault(kr => kr.CheckOutDate == null);
+            return data;
+        }
+
         public Task<List<KennelRecord>> getByKennelId(int kennelId)
         {
             var data = _context.KennelRecords.Include(p => p.Pet).Include(p => p.Kennel)

@@ -64,8 +64,6 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage.Kennel
         {
             Console.WriteLine($"PetId: {KennelRecord.PetId}");
             Console.WriteLine($"KennelId: {KennelRecord.KennelId}");
-            Console.WriteLine($"CheckInDate: {KennelRecord.CheckInDate}");
-            Console.WriteLine($"CheckOutDate: {KennelRecord.CheckOutDate}");
             Console.WriteLine($"Treatment: {KennelRecord.Treatment}");
 
 
@@ -74,9 +72,18 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage.Kennel
             //    return Page();
             //}
             var mapper = _mapper.Map<KennelRecordRequestDTO>(KennelRecord);
-            await _kennelRecordService.AddKennelRecord(mapper);
+            string message = await _kennelRecordService.AddKennelRecord(mapper);
+            if(message.Equals("Add kennel successful!"))
+            {
+                return RedirectToPage("/BookingPage/Index");
+            }
+            else
+            {
+                ViewData["Message"] = message;
+                return Page();
+            }
 
-            return RedirectToPage("/BookingPage/Index");
+            
         }
     }
 }

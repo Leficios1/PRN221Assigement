@@ -19,5 +19,6 @@ namespace Services.Services.Interface
         Task<KennelRecordResponseDTO?> getByKennelStatus(int kennelId);
         Task<string?> GetKennelStatusByPetId(int petId);
         Task<bool> checkoutKennel(int kennelId);
+        Task<KennelRecordResponseDTO> getByPetIdDto(int petId);
     }
 }

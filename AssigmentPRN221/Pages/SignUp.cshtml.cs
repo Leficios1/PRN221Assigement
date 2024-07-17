@@ -32,7 +32,7 @@ namespace AssigmentPRN221.Pages
             {
                 return Page();
             }
-
+            
             await _userServices.createUser(User);
             return RedirectToPage("./LoginPage");
         }

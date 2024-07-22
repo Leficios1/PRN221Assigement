@@ -32,25 +32,30 @@ namespace AssigmentPRN221.Pages
             if (check == 1)
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
-                HttpContext.Session.SetInt32("Roles", check);
+                HttpContext.Session.SetInt32("Roles", (int)check);
                 return RedirectToPage("./Welcome");
             }else if (check == 2)
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
-                HttpContext.Session.SetInt32("Roles", check);
+                HttpContext.Session.SetInt32("Roles", (int)check);
                 return RedirectToPage("/KennelPage/KennelWelcom");
             }
             else if (check == 3)
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
-                HttpContext.Session.SetInt32("Roles", check);
+                HttpContext.Session.SetInt32("Roles", (int)check);
                 return RedirectToPage("/UserPage/Index");
             }
             else if (check == 4)
             {
                 HttpContext.Session.SetString("UserEmail", Input.Email);
-                HttpContext.Session.SetInt32("Roles", check);
+                HttpContext.Session.SetInt32("Roles", (int)check);
                 return RedirectToPage("/VetPage/Index");
+            }
+            else if (check == null)
+            {
+                TempData["Message"] = "Invalid username or password";
+                return Page();
             }
             ModelState.AddModelError(string.Empty, "Invalid login attempt.");
             return Page();

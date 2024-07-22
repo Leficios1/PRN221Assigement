@@ -77,12 +77,16 @@ namespace Services.Services
             }
         }
 
-        public async Task<int> Login(string email, string password)
+        public async Task<int?> Login(string email, string password)
         {
             try
             {
                 var account = await _accountRepo.GetAllAccount();
                 var data = account.Where(x => x.Email.Equals(email) && x.Password.Equals(password)).SingleOrDefault();
+                if (data == null)
+                {
+                    return null;
+                }
                 var role = data.RoleId;
                 return role;
             }catch (Exception ex)

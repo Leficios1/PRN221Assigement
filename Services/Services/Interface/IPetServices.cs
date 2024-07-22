@@ -16,5 +16,6 @@ namespace Services.Services.Interface
         Task<PetResponseDTO> createPet(PetRequestDTO dto);
         Task<bool> deletePet(int id);
         Task<int> getPetIdByPetName(string name);
+        Task<PetResponseDTO> getById(int id);
     }
 }

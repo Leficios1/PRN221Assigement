@@ -50,7 +50,7 @@ namespace DataAccessObject.Repository
 
         public KennelRecord getByPetIddto(int petid)
         {
-            var data =  _context.KennelRecords.FirstOrDefault(kr => kr.CheckOutDate == null);
+            var data =  _context.KennelRecords.FirstOrDefault(kr => kr.status == true && kr.PetId == petid);
             return data;
         }
 

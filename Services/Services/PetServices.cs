@@ -99,6 +99,19 @@ namespace Services.Services
             }
         }
 
+        public async Task<PetResponseDTO> getById(int id)
+        {
+            try
+            {
+                var data = await _petRepository.GetById(id);
+                var mapper = _mapper.Map<PetResponseDTO>(data);
+                return mapper;
+            }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public async Task<List<PetResponseDTO>> getPetByUserId(int userId)
         {
             try

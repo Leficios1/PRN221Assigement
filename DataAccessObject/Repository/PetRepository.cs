@@ -72,7 +72,11 @@ namespace DataAccessObject.Repository
             var data = await _context.Pets.Where(x => x.Id == dto.Id).SingleOrDefaultAsync();
             if (data != null)
             {
-                _context.Pets.Update(data);
+                data.PetName = dto.PetName;
+                data.PetType = dto.PetType;
+                data.BirthDate = dto.BirthDate;
+                data.PetGender = dto.PetGender;
+                data.PetSecialFeatures = dto.PetSecialFeatures;
                 await _context.SaveChangesAsync();
                 return true;
             }

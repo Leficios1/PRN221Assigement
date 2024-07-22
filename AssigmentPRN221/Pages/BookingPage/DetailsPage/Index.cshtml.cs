@@ -34,6 +34,10 @@ namespace AssigmentPRN221.Pages.BookingPage.DetailsPage
                 return NotFound();
             }
             BookingResponseDTO = booking;
+            if(kennelRecord == null)
+            {
+
+            }
             KennelRecordto = kennelRecord;
             return Page();
         }

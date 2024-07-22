@@ -8,71 +8,61 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
+using Services.Services.Interface;
+using BussinessObject.DTOs.Response;
+using BussinessObject.DTOs.Request;
 
 namespace AssigmentPRN221.Pages.PetsPage
 {
     public class EditModel : PageModel
     {
-        private readonly DataAccessObject.Database.PetManagementContext _context;
+        private readonly IPetServices _petservices;
+        private readonly IAccountService _accountServices;
 
-        public EditModel(DataAccessObject.Database.PetManagementContext context)
+        public EditModel(IPetServices petServices, IAccountService accountService)
         {
-            _context = context;
+            _petservices = petServices;
+            _accountServices = accountService;
         }
 
         [BindProperty]
-        public Pet Pet { get; set; } = default!;
+        public PetRequestDTO Pet { get; set; } = default!;
+        public PetResponseDTO PetResponse { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null || _context.Pets == null)
+            var email = HttpContext.Session.GetString("UserEmail");
+            if (email == null)
+            {
+                return RedirectToPage("/LoginPage");
+            }
+            PetResponse = await _petservices.getById(id);
+            if (PetResponse == null)
             {
                 return NotFound();
             }
-
-            var pet =  await _context.Pets.FirstOrDefaultAsync(m => m.Id == id);
-            if (pet == null)
+            Pet = new PetRequestDTO
             {
-                return NotFound();
-            }
-            Pet = pet;
-           ViewData["UserId"] = new SelectList(_context.Users, "Id", "Address");
+                Id = PetResponse.Id,
+                PetName = PetResponse.PetName,
+                PetType = PetResponse.PetType,
+                BirthDate = PetResponse.BirthDate,
+                PetGender = PetResponse.PetGender,
+                PetSecialFeatures = PetResponse.PetSecialFeatures
+            };
+            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Address");
             return Page();
         }
 
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see https://aka.ms/RazorPagesCRUD.
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-
-            _context.Attach(Pet).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PetExists(Pet.Id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
+            await _petservices.updatePets(Pet);
             return RedirectToPage("./Index");
-        }
-
-        private bool PetExists(int id)
-        {
-          return (_context.Pets?.Any(e => e.Id == id)).GetValueOrDefault();
         }
         public IActionResult OnPostLogout()
         {

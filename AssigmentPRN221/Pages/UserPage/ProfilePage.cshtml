@@ -1,0 +1,33 @@
+﻿@page
+@model ProfilePageModel
+@{
+    ViewData["Title"] = "User Profile";
+    Layout = "_userLayout";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile Picture" class="img-thumbnail" />
+                <form method="post" enctype="multipart/form-data">
+                    <label class="btn btn-primary mt-2">
+                        Change Picture <input type="file" hidden>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="profile-head">
+                <h5>@Model.UserResponseDTO.Name</h5>
+                <h6>@Model.UserResponseDTO.Email</h6>
+                <p class="profile-details">
+                    <strong>Phone:</strong> @Model.UserResponseDTO.Phone<br />
+                    <strong>Address:</strong> @Model.UserResponseDTO.Address<br />
+                    <strong>Date of Birth:</strong> @Model.UserResponseDTO.DateOfBirth?.ToString("d")<br />
+                    <strong>Gender:</strong> @Model.UserResponseDTO.Gender<br />
+                </p>
+            </div>
+        </div>
+    </div>
+</div>

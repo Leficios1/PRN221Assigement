@@ -2,130 +2,289 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Welcome to PetCare";
+    Layout = null;
 }
 
-<div class="container mt-5">
-    <div class="jumbotron text-center">
-        <h1 class="display-4">Welcome to PetCare</h1>
-        <p class="lead">Your trusted partner in pet care and happiness</p>
-        <hr class="my-4">
-        <p>We provide top-notch services to ensure your furry friends are healthy and happy.</p>
-        <a class="btn btn-primary btn-lg" href="#services" role="button">Learn More</a>
-    </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+        }
 
-    <div class="row mt-5" id="services">
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg" class="card-img-top" alt="Grooming">
-                <div class="card-body">
-                    <h5 class="card-title">Grooming</h5>
-                    <p class="card-text">Professional grooming services to keep your pet looking their best.</p>
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: #4a4a4a;
+        }
+
+        .nav-link {
+            color: #4a4a4a !important;
+            font-weight: 500;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1450778869180-41d0601e046e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80') no-repeat center center;
+            background-size: cover;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #ffffff;
+        }
+
+            .hero h1 {
+                font-size: 3.5rem;
+                font-weight: 700;
+                margin-bottom: 1rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+
+        .btn-primary {
+            background-color: #3498db;
+            border: none;
+            padding: 10px 25px;
+            font-weight: 600;
+        }
+
+            .btn-primary:hover {
+                background-color: #2980b9;
+            }
+
+        .service-card {
+            background: #ffffff;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+            .service-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            }
+
+            .service-card img {
+                height: 200px;
+                object-fit: cover;
+            }
+
+            .service-card .card-body {
+                padding: 20px;
+            }
+
+            .service-card .card-title {
+                font-weight: 600;
+                color: #3498db;
+            }
+
+        .testimonial {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+            .testimonial img {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                margin-bottom: 15px;
+            }
+
+        footer {
+            background-color: #34495e;
+            color: #ffffff;
+            padding: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <div class="container">
+            <a class="navbar-brand" href="#">PetCare</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#services">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white ml-lg-2" href="/LoginPage">Login</a>
+                    </li
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-primary text-white ml-lg-2" href="/SignUp">Signin</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="container">
+            <h1>Welcome to PetCare</h1>
+            <p>Your trusted partner in pet care and happiness</p>
+            <a href="#services" class="btn btn-primary btn-lg">Explore Our Services</a>
+        </div>
+    </section>
+
+    <section id="services" class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">Our Services</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <img src="https://cdn.britannica.com/34/235834-050-C5843610/two-different-breeds-of-cats-side-by-side-outdoors-in-the-garden.jpg" alt="Grooming" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Grooming</h5>
+                            <p class="card-text">Professional grooming services to keep your pet looking their best.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <img src="https://www.nylabone.com/-/media/project/oneweb/nylabone/images/dog101/10-intelligent-dog-breeds/golden-retriever-tongue-out.jpg" alt="Boarding" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Boarding</h5>
+                            <p class="card-text">Safe and comfortable boarding facilities for when you're away.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card">
+                        <img src="https://www.usnews.com/object/image/0000016f-8b16-da7f-a97f-fb3709710000/200109-veterinarian-stock.jpg?update-time=1578586935081&size=responsive640" alt="Veterinary Care" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Veterinary Care</h5>
+                            <p class="card-text">Expert veterinary services to keep your pet healthy and happy.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://www.nylabone.com/-/media/project/oneweb/nylabone/images/dog101/10-intelligent-dog-breeds/golden-retriever-tongue-out.jpg" class="card-img-top" alt="Boarding">
-                <div class="card-body">
-                    <h5 class="card-title">Boarding</h5>
-                    <p class="card-text">Safe and comfortable boarding facilities for when you're away.</p>
+    </section>
+
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <h2 class="text-center mb-5">Why Choose Us?</h2>
+            <div class="row">
+                <div class="col-md-3 text-center">
+                    <i class="fas fa-user-md fa-3x mb-3 text-primary"></i>
+                    <h5>Experienced Staff</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <i class="fas fa-hospital fa-3x mb-3 text-primary"></i>
+                    <h5>Modern Facilities</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <i class="fas fa-heart fa-3x mb-3 text-primary"></i>
+                    <h5>Personalized Care</h5>
+                </div>
+                <div class="col-md-3 text-center">
+                    <i class="fas fa-calendar-check fa-3x mb-3 text-primary"></i>
+                    <h5>Easy Booking</h5>
                 </div>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="card">
-                <img src="https://www.usnews.com/object/image/0000016f-8b16-da7f-a97f-fb3709710000/200109-veterinarian-stock.jpg?update-time=1578586935081&size=responsive640" class="card-img-top" alt="Veterinary Care">
-                <div class="card-body">
-                    <h5 class="card-title">Veterinary Care</h5>
-                    <p class="card-text">Expert veterinary services to keep your pet healthy and happy.</p>
+    </section>
+
+    <section class="py-5">
+        <div class="container">
+            <h2 class="text-center mb-5">What Our Clients Say</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Client">
+                        <p>"PetCare has been amazing for my dog! The staff is so caring and professional."</p>
+                        <h6>- Sarah M.</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Client">
+                        <p>"I've never seen my cat so happy after grooming. Highly recommended!"</p>
+                        <h6>- John D.</h6>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="testimonial">
+                        <img src="https://randomuser.me/api/portraits/women/89.jpg" alt="Client">
+                        <p>"The veterinary care at PetCare is top-notch. They truly care about animals."</p>
+                        <h6>- Emma W.</h6>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div class="text-center mt-5">
-        <h2>Why Choose Us?</h2>
-        <ul class="list-unstyled">
-            <li>Experienced and caring staff</li>
-            <li>State-of-the-art facilities</li>
-            <li>Personalized care for each pet</li>
-            <li>Convenient online booking</li>
-        </ul>
-    </div>
+    <section id="contact" class="py-5 bg-primary text-white">
+        <div class="container text-center">
+            <h2 class="mb-4">Ready to give your pet the best care?</h2>
+            <a asp-page="/BookingUser/Index" class="btn btn-light btn-lg">Book Now</a>
+        </div>
+    </section>
 
-    <div class="text-center mt-5">
-        <h2>Ready to give your pet the best care?</h2>
-        <a class="btn btn-success btn-lg mt-3" asp-page="/BookingUser/Index" role="button">Book Now</a>
-    </div>
-</div>
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>About PetCare</h5>
+                    <p>We are dedicated to providing the best care for your beloved pets.</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white">Home</a></li>
+                        <li><a href="#services" class="text-white">Services</a></li>
+                        <li><a href="#about" class="text-white">About Us</a></li>
+                        <li><a href="#contact" class="text-white">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Us</h5>
+                    <address>
+                        FPT University<br>
+                        Phone: (+84) 0329454657<br>
+                        Email: info@petcare.com
+                    </address>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p>&copy; 2024 PetCare. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 
-<style>
-    body {
-    font-family: 'Roboto', sans-serif;
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-.jumbotron {
-    background-color: #e9ecef;
-    border-radius: 15px;
-    padding: 4rem 2rem;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.jumbotron h1 {
-    color: #007bff;
-    font-weight: 700;
-}
-
-.btn-primary {
-    background-color: #007bff;
-    border: none;
-    transition: all 0.3s ease;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-    transform: translateY(-2px);
-}
-
-.card {
-    border: none;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.card-img-top {
-    height: 200px;
-    object-fit: cover;
-}
-
-.card-title {
-    color: #007bff;
-    font-weight: 600;
-}
-
-.list-unstyled li {
-    padding: 0.5rem 0;
-    font-size: 1.1rem;
-}
-
-.btn-success {
-    background-color: #28a745;
-    border: none;
-    transition: all 0.3s ease;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-    transform: translateY(-2px);
-}
-
-</style>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

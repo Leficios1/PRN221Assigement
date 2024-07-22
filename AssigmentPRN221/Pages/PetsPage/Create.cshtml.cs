@@ -25,7 +25,7 @@ namespace AssigmentPRN221.Pages.PetsPage
 
         public IActionResult OnGet()
         {
-        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Address");
+        ViewData["UserId"] = new SelectList(_context.Users, "Id", "Name");
             return Page();
         }
 

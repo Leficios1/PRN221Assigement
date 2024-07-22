@@ -6,9 +6,8 @@
     <title>@ViewData["Title"] - AssigmentPRN221</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/AssigmentPRN221.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/userStyle.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-
     @if (ViewData["IsIndexPage"] != null && (bool)ViewData["IsIndexPage"])
     {
         <link rel="stylesheet" href="~/css/IndexStyle.css" />
@@ -18,7 +17,7 @@
     @if (ViewContext.ActionDescriptor.DisplayName != "/LoginPage")
     {
         <header>
-            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <nav class="navbar navbar-expand-sm navbar-light bg-white border-bottom box-shadow mb-3">
                 <div class="container">
                     <a class="navbar-brand" asp-area="" asp-page="/UserPage/Index">Home</a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -37,7 +36,7 @@
                                 </li>
                             </ul>
                         }
-                        <ul class="navbar-nav ml-auto">
+                        <ul class="navbar-nav">
                             @if (ViewContext.ActionDescriptor.DisplayName == "/Index")
                             {
                                 <li class="nav-item">
@@ -46,6 +45,11 @@
                             }
                             else
                             {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-area="" asp-page="/UserPage/ProfilePage">
+                                        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" alt="Profile" class="rounded-circle" style="width: 40px; height: 40px;">
+                                    </a>
+                                </li>
                                 <partial name="_LoginPartial" />
                             }
                         </ul>
@@ -66,7 +70,7 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script> 
+    <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

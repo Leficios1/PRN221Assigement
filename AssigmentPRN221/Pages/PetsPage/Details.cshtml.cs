@@ -7,28 +7,28 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Database;
+using Services.Services.Interface;
+using BussinessObject.DTOs.Response;
 
 namespace AssigmentPRN221.Pages.PetsPage
 {
     public class DetailsModel : PageModel
     {
         private readonly DataAccessObject.Database.PetManagementContext _context;
+        private readonly IPetServices _petServices;
 
-        public DetailsModel(DataAccessObject.Database.PetManagementContext context)
+        public DetailsModel(DataAccessObject.Database.PetManagementContext context, IPetServices petServices)
         {
             _context = context;
+            _petServices = petServices;
         }
 
-      public Pet Pet { get; set; } = default!; 
+      public PetResponseDTO Pet { get; set; } = default!; 
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id)
         {
-            if (id == null || _context.Pets == null)
-            {
-                return NotFound();
-            }
 
-            var pet = await _context.Pets.FirstOrDefaultAsync(m => m.Id == id);
+            var pet = await _petServices.getById(id);
             if (pet == null)
             {
                 return NotFound();

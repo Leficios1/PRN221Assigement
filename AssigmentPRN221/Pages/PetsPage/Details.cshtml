@@ -1,94 +1,72 @@
 ﻿@page
-@model AssigmentPRN221.Pages.ServicePage.DetailsModel
+@model AssigmentPRN221.Pages.PetsPage.DetailsModel
+
 @{
-    Layout = null;
+    ViewData["Title"] = "Pet Details";
+    Layout = "_userLayout";
 }
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Service Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: #f4f4f4;
-        }
+<style>
+    .pet-details {
+    margin-top: 20px;
+}
 
-        h4 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            padding-bottom: 10px;
-        }
+.pet-details dl {
+    font-size: 1.1em;
+}
 
-        .details-container {
-            background-color: #fff;
-            border-radius: 5px;
-            padding: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
+.pet-details dt {
+    font-weight: bold;
+}
 
-        .row {
-            display: flex;
-            margin-bottom: 10px;
-        }
+.pet-details dd {
+    margin-bottom: 10px;
+}
 
-        .col-sm-2 {
-            flex: 0 0 30%;
-            font-weight: bold;
-        }
+.pet-details img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #ddd;
+    padding: 5px;
+    background: #fff;
+}
 
-        .col-sm-10 {
-            flex: 0 0 70%;
-        }
+.pet-details .btn {
+    margin-right: 10px;
+}
 
-        .actions {
-            margin-top: 20px;
-            text-align: right;
-        }
 
-            .actions a {
-                display: inline-block;
-                padding: 10px 15px;
-                background-color: #3498db;
-                color: #fff;
-                text-decoration: none;
-                border-radius: 3px;
-                transition: background-color 0.3s;
-            }
+</style>
+<h1>Pet Details</h1>
 
-                .actions a:hover {
-                    background-color: #2980b9;
-                }
-    </style>
-</head>
-<body>
-    <div class="details-container">
-        <h4>Service Details</h4>
-        <hr />
-        <dl>
-            <div class="row">
-                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Service.ServiceName)</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.Service.ServiceName)</dd>
-            </div>
-            <div class="row">
-                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Service.ServiceCharge)</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.Service.ServiceCharge)</dd>
-            </div>
-            <div class="row">
-                <dt class="col-sm-2">@Html.DisplayNameFor(model => model.Service.status)</dt>
-                <dd class="col-sm-10">@Html.DisplayFor(model => model.Service.status)</dd>
-            </div>
-        </dl>
+<div class="pet-details">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="row">
+                <dt class="col-sm-4">Pet Name</dt>
+                <dd class="col-sm-8">@Model.Pet.PetName</dd>
+
+                <dt class="col-sm-4">Pet Type</dt>
+                <dd class="col-sm-8">@Model.Pet.PetType</dd>
+
+                <dt class="col-sm-4">Birth Date</dt>
+                <dd class="col-sm-8">@Model.Pet.BirthDate.ToString("d")</dd>
+
+                <dt class="col-sm-4">Pet Gender</dt>
+                <dd class="col-sm-8">@Model.Pet.PetGender</dd>
+
+                <dt class="col-sm-4">Special Features</dt>
+                <dd class="col-sm-8">@Model.Pet.PetSecialFeatures</dd>
+            </dl>
+        </div>
     </div>
-    <div class="actions">
-        <a asp-page="./Edit" asp-route-id="@Model.Service?.Id">Edit</a>
-        <a asp-page="./Index">Back to List</a>
+    <div class="mt-3">
+        <a asp-page="./Edit" asp-route-id="@Model.Pet.Id" class="btn btn-primary">Edit</a>
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
     </div>
-</body>
-</html>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

@@ -1,6 +1,6 @@
 ﻿@page
 @using BussinessObject.Model.ENUM;
-@model AssigmentPRN221.Pages.BookingPage.IndexModel
+@model AssigmentPRN221.Pages.BookingPage.BookingDoneModel
 
 @{
     ViewData["Title"] = "Index";
@@ -9,7 +9,7 @@
 
 }
 
-<h1>Booking Process</h1>
+<h1>Booking Done</h1>
 
 <table class="table">
     <thead>
@@ -56,10 +56,7 @@
                     @Html.DisplayFor(modelItem => item.Note)
                 </td>
                 <td>
-                    <a asp-page="./DetailsPage/Index" asp-route-id="@item.BookingId">Details</a>
-                </td>
-                <td>
-                    <a asp-page="./CheckOutPage" asp-route-id="@item.BookingId">CheckOut</a>
+                    <a asp-page="./DetailsPage/DetailsDone" asp-route-id="@item.BookingId">Details</a>
                 </td>
             </tr>
         }

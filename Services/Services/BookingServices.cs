@@ -3,6 +3,7 @@ using BussinessObject.DTOs.Request;
 using BussinessObject.DTOs.Response;
 using BussinessObject.Model.Entities;
 using DataAccessObject.Repository.Interface;
+using Microsoft.Extensions.Logging;
 using Services.Services.Interface;
 using System;
 using System.Collections.Generic;
@@ -87,6 +88,33 @@ namespace Services.Services
                 throw new Exception(ex.Message);
             }
         }
+        public async Task<List<BookingResponseDTO>> getAllBookingProcessAsync()
+        {
+            try
+            {
+                var data = await _bookingRepository.getAllBookingProcessAsync();
+                var result = _mapper.Map<List<BookingResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<List<BookingResponseDTO>> getAllBookingDoneAsync()
+        {
+            try
+            {
+                var data = await _bookingRepository.getAllBookingDoneAsync();
+                var result = _mapper.Map<List<BookingResponseDTO>>(data);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
         public async Task<List<BookingResponseDTO>> getAllBookingByVetId(int vetId)
         {
@@ -149,6 +177,19 @@ namespace Services.Services
                 var result = await _bookingRepository.updateStatus(bookingId);
                 return result;
             }catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<BookingResponseDTO>getBookingById(int id)
+        {
+            try
+            {
+                var data = await _bookingRepository.getById(id);
+                return data;
+            }
+            catch (Exception ex)
             {
                 throw new Exception(ex.Message);
             }

@@ -1,5 +1,5 @@
 ﻿@page "{id:int}"
-@model AssigmentPRN221.Pages.BookingPage.DetailsPage.IndexModel
+@model AssigmentPRN221.Pages.BookingPage.DetailsPage.DetailsDoneModel
 @{
     ViewData["Title"] = "Booking Details";
     Layout = "_StaffLayout";
@@ -51,7 +51,7 @@
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.KennelRecordto.KennelName)
-                </th>
+            </th>
 
             <th>
                 @Html.DisplayNameFor(model => model.BookingResponseDTO.bookingDetails[0].VetName)
@@ -77,18 +77,18 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.PetName)
                 </td>
-                @if(Model.KennelRecordto != null)
+                @if (Model.KennelRecordto != null)
                 {
-                <td>
-                    @Html.DisplayFor(model => model.KennelRecordto.KennelName)
-                </td>
+                    <td>
+                        @Html.DisplayFor(model => model.KennelRecordto.KennelName)
+                    </td>
                 }
                 else
                 {
                     <td>
                         null
                     </td>
-                }     
+                }
                 <td>
                     @Html.DisplayFor(modelItem => item.VetName)
                 </td>
@@ -100,9 +100,6 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    <a asp-page="Kennel/AddKennel" asp-route-petName="@item.PetName">Add Kennel</a>
                 </td>
             </tr>
         }

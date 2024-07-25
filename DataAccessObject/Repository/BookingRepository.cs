@@ -85,6 +85,33 @@ namespace DataAccessObject.Repository
         .ToListAsync();
             return data;
         }
+        public async Task<List<Booking>> getAllBookingProcessAsync()
+        {
+            var data = await _context.Bookings
+        .Include(b => b.User)  // Include User information
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.Pet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.vet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.service)
+        .Where(b => b.Status == 3).ToListAsync();
+            return data;
+        }
+
+        public async Task<List<Booking>> getAllBookingDoneAsync()
+        {
+            var data = await _context.Bookings
+        .Include(b => b.User)  // Include User information
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.Pet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.vet)
+        .Include(b => b.BookingDetails)
+            .ThenInclude(d => d.service)
+        .Where(b => b.Status == 2).ToListAsync();
+            return data;
+        }
 
         private async Task<int> getVetIdByVetId(int vetId)
         {
@@ -170,9 +197,15 @@ namespace DataAccessObject.Repository
             return data;
         }
 
-        public async Task<BookingResponseDTO> updateBookingAsync(BookingRequestDTO dto)
+        public void updateBookingAsync(Booking entity)
         {
-            throw new NotImplementedException();
+            _context.Bookings.Update(entity);
+            _context.SaveChanges();
+        }
+        public Booking getByIdEntity(int id)
+        {
+            var book = _context.Bookings.FirstOrDefault(b => b.BookingId == id);
+            return book;
         }
 
         public async Task<bool> updateStatus(int bookingId)

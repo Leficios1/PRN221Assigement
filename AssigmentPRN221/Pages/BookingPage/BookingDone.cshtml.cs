@@ -1,31 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BussinessObject.DTOs.Response;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BussinessObject.Model.Entities;
-using DataAccessObject.Database;
 using Services.Services.Interface;
-using BussinessObject.DTOs.Response;
 
 namespace AssigmentPRN221.Pages.BookingPage
 {
-    public class IndexModel : PageModel
+    public class BookingDoneModel : PageModel
     {
         private readonly IBookingServices _bookingServices;
 
-        public IndexModel(IBookingServices bookingServices)
+        public BookingDoneModel(IBookingServices bookingServices)
         {
             _bookingServices = bookingServices;
         }
 
-        public List<BookingResponseDTO> Booking { get;set; } = default!;
+        public List<BookingResponseDTO> Booking { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-            Booking =await _bookingServices.getAllBookingProcessAsync();
+            Booking = await _bookingServices.getAllBookingDoneAsync();
         }
         public IActionResult OnPostLogout()
         {
@@ -33,5 +26,4 @@ namespace AssigmentPRN221.Pages.BookingPage
             return RedirectToPage("/Index");
         }
     }
-
 }

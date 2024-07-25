@@ -1,0 +1,118 @@
+﻿@page
+@using BussinessObject.Model.ENUM;
+@model AssigmentPRN221.Pages.BookingPage.CheckOutPageModel
+
+@{
+    ViewData["Title"] = "CheckOut";
+    ViewData["IsIndexPage"] = true;
+    Layout = "_StaffLayout";
+}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f0f0;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .container {
+        width: 100%;
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+
+    .page-title {
+        font-size: 24px;
+        color: #4CAF50; /* Example color */
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .checkout-details {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid #ddd;
+        padding: 15px;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        width: 100%;
+    }
+
+    .detail-item {
+        margin-bottom: 10px;
+        width: 100%; /* Ensure items take full width */
+        display: flex;
+        justify-content: space-between;
+    }
+
+        .detail-item .label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .detail-item .value {
+            color: #555;
+        }
+
+    .form-actions {
+        margin-top: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .checkout-button {
+        padding: 10px 20px;
+        font-size: 16px;
+        color: #fff;
+        background-color: #4CAF50; /* Button color */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .checkout-button:hover {
+            background-color: #45a049; /* Darker shade on hover */
+        }
+
+</style>
+
+<h1 class="page-title">CheckOut Page</h1>
+
+<form method="post">
+    <div class="checkout-details">
+        <input type="hidden" name="BookingId" value="@Model.Booking.BookingId" />
+        <div class="detail-item">
+            <span class="label">User Name:</span>
+            <span class="value">@Html.DisplayFor(model => model.Booking.UserName)</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Date:</span>
+            <span class="value">@Html.DisplayFor(model => model.Booking.Date)</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Pet Name:</span>
+            <span class="value">@Html.DisplayFor(model => model.checkout.PetName)</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Service Name:</span>
+            <span class="value">@Html.DisplayFor(model => model.checkout.ServiceName)</span>
+        </div>
+        <div class="detail-item">
+            <span class="label">Total Price:</span>
+            <span class="value">@Html.DisplayFor(model => model.checkout.TotalPrice)</span>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="checkout-button">CheckOut</button>
+        </div>
+    </div>
+</form>
